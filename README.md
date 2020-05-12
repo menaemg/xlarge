@@ -2,8 +2,8 @@
 Xarge project back-end with Laravel
 
 
-# Project structure:
-## Project will contain 4 models
+## Project structure:
+### Project will contain 4 models
 
 #### 1)	Post
     •	Id
@@ -35,4 +35,20 @@ Xarge project back-end with Laravel
     •	Parent			=> nullable | Category_id  , one to many relation with Category
 
 ####  //Tag can added in future
+
+
+### How To Use
+
+#### 1- make sure you have Compuser and Laravel and mysql in you machine
+#### 2- Download Project or Clone It
+#### 3- setup your .env file for database info and app key
+#### 3-in Project folder run this comands
+    •	$ php artisan migrate
+    •	$ composer dump-autoload
+    •	$ php artisan db:seed
+    •	$ php artisan serve
+#### 4- go to 'http://127.0.0.1:8000' in your browser you will see wellcome screen
+
+## Json Api Services
+
 
