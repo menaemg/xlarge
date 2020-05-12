@@ -5,7 +5,7 @@ Xarge project back-end with Laravel
 # Project structure:
 ## Project will contain 4 models
 
-1)	Post
+### 1)	Post
     •	Id
     •	Title			=> string
     •	Content		=> text
