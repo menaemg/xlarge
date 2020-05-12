@@ -8,10 +8,10 @@
 #### 1)	Post
     •	Id
     •	Title			=> string
-    •	Content		    => text
+    •	Content         => text
     •	Status			=> Boolean  ( private or public )
     •	Image			=> string , image
-    •	User_id		    => ones to many relation with User
+    •	User_id         => ones to many relation with User
     •	Category_id		=> one to many relation with Category
 #
 #### 2)	User
