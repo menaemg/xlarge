@@ -43,6 +43,7 @@
 #### 2- Download Project or Clone It
 #### 3- setup your .env file for database info and app key
 #### 3- in Project folder run this comands
+    •	$ compuser install
     •	$ php artisan migrate
     •	$ composer dump-autoload
     •	$ php artisan db:seed
