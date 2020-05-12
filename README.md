@@ -52,14 +52,14 @@
 ## Json Api Services (index and show)
 ### Posts Api
     •	All posts           /api/posts
-    •	One Post		    /api/posts/{id}
+    •	One Post            /api/posts/{id}
 ### Users Api
     •	All Users           /api/users
-    •	One User		     /api/users/{id}
+    •	One User            /api/users/{id}
 ### Categories Api
-    •	All Categories       /api/categories
-    •	One Category		/api/categories/{id}
+    •	All Categories      /api/categories
+    •	One Category        /api/categories/{id}
 ### Comments Api
     •	All Comments        /api/comments
-    •	One Comment		    /api/comments/{id}
+    •	One Comment         /api/comments/{id}
 
