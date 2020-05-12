@@ -50,6 +50,7 @@
 #### 4- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
 ##
 ## Json Api Services (index and show)
-####    Posts Api
-        
+###    Posts Api
+####   All posts
+#####  http://127.0.0.1:8000/api/posts/       
 
