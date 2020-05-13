@@ -43,8 +43,8 @@
 #### 2- Download Project or Clone It
 #### 3- rename .env.example to .en and create new database and set DBs name & MySQl user & MySQl password in this file
 #### 4- in Project folder run this comands
-    •	$ compuser install
-    •	$ compuser install
+    •	$ composer install
+    •	$ php artisan appkey:genurate install
     •	$ php artisan migrate
     •	$ composer dump-autoload
     •	$ php artisan db:seed
