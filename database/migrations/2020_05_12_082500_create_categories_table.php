@@ -21,7 +21,7 @@ class CreateCategoriesTable extends Migration
 
             //link parent with category->id
             $table->unsignedBigInteger('parent')->nullable();
-            $table->foreign('parent')->references('id')->on('users');
+            $table->foreign('parent')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

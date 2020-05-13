@@ -80,6 +80,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        $msg="Category deleted";
+        return response()->json($msg);
     }
 }

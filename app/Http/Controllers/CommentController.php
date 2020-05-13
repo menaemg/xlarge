@@ -80,6 +80,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+   
+        $comment->delete();
+        $msg="Comment deleted";
+        return response()->json($msg);
     }
 }
