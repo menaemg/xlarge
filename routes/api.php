@@ -12,8 +12,3 @@ Route::resource('/posts' , 'PostController');
 Route::resource('/categories' , 'CategoryController');
 Route::resource('/comments' , 'CommentController');
 
-//routes to delete
-//Route::get('users/delete/{user}' , 'UserController@destroy');
-//Route::get('posts/delete/{post}' , 'PostController@destroy');
-//Route::get('categories/delete/{category}' , 'CategoryController@destroy');
-//Route::get('comments/delete/{comment}' , 'CommentController@destroy');

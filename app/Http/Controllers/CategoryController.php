@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use Validator;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -69,7 +70,26 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+
+
+            // $validator = Validator::make($request->all(), [
+            //     'name' => 'required|min:3|max:100|unique:categories',
+            //     'description' => 'required|min:10|max:1000'
+            // ]);
+
+            // if ($validator->fails()) {
+            //     //dd($validator);
+            //     return response()->json($validator->messages(), 200);
+            // }
+
+            // $category->update([$request->all()]);
+
+            // $msg="Category Updated";
+            //     return response()->json($msg);
+
+            return response()->json($request->name);
+
+
     }
 
     /**

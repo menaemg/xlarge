@@ -49,7 +49,7 @@
     •	$ composer dump-autoload
     •	$ php artisan db:seed
     •	$ php artisan serve
-#### 4- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
+#### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
 ##
 ## Json Api Services (index and show and delete)
 ### Posts Api
