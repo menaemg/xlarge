@@ -12,7 +12,7 @@
     •	Status          => Boolean  ( private or public )
     •	Image           => string , image
     •	User_id         => ones to many relation with User
-    •	Category_id	    => one to many relation with Category
+    •	Category_id     => one to many relation with Category
 #
 #### 2)	User
     •	Id
@@ -24,9 +24,9 @@
 #
 #### 3)	Comment
     •	Id
-    •	Content		=> text
-    •	Post_id		=> one to many relation with Post
-    •	User_id		=> one to many relation with User
+    •	Content		    => text
+    •	Post_id		    => one to many relation with Post
+    •	User_id		    => one to many relation with User
 #
 #### 4)	Category
     •	Id
@@ -41,8 +41,9 @@
 #
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
 #### 2- Download Project or Clone It
-#### 3- setup your .env file for database info and app key
-#### 3- in Project folder run this comands
+#### 3- rename .env.example to .en and create new database and set DBs name & MySQl user & MySQl password in this file
+#### 4- in Project folder run this comands
+    •	$ compuser install
     •	$ compuser install
     •	$ php artisan migrate
     •	$ composer dump-autoload
@@ -50,17 +51,20 @@
     •	$ php artisan serve
 #### 4- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
 ##
-## Json Api Services (index and show)
+## Json Api Services (index and show and delete)
 ### Posts Api
-    •	All posts           /api/posts
-    •	One Post            /api/posts/{id}
+    •	All posts           /api/posts/                     method:get
+    •	One Post            /api/posts/{id}                 method:get
+    •	Delete Post         /api/posts/delete/{id}          method:delete
 ### Users Api
-    •	All Users           /api/users
-    •	One User            /api/users/{id}
+    •	All Users           /api/users                      method:get
+    •	One User            /api/users/{id}                 method:get
+    •	Delete User         /api/users/delete/{id}          method:delete
 ### Categories Api
-    •	All Categories      /api/categories
-    •	One Category        /api/categories/{id}
+    •	All Categories      /api/categories                 method:get
+    •	One Category        /api/categories/{id}            method:get
+    •	Delete Cartegory    /api/categories/delete/{id}     method:delete
 ### Comments Api
-    •	All Comments        /api/comments
-    •	One Comment         /api/comments/{id}
-
+    •	All Comments        /api/comments                   method:get
+    •	One Comment         /api/comments/{id}              method:get
+    •	Delete Comment      /api/comments/delete/{id}       method:delete
