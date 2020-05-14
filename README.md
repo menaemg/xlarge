@@ -32,7 +32,7 @@
     •	Id
     •	Name            => required|max:255|min:3|unique
     •	Description     => required|min:3|max:1000
-    •	Parent          => nullable | Category_id  , one to many relation with Category
+    •	Parent           => nullable | Category_id  , one to many relation with Category
 #
 ####  //Tag can added in future
 #
@@ -41,7 +41,7 @@
 #
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
 #### 2- Download Project or Clone It
-#### 3- rename .env.example to .en and create new database and set DBs name & MySQl user & MySQl password in this file
+#### 3- rename .env.example to .env and create new database and set DBs name & MySQl user & MySQl password in this file
 #### 4- in Project folder run this comands
     •	$ composer install
     •	$ php artisan appkey:genurate
