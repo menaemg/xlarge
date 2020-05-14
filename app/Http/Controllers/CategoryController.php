@@ -101,10 +101,36 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+
+     // Added Soft Delete To destroy function
+    public function destroy($id)
     {
-        $category->delete();
-        $msg="Category deleted";
-        return response()->json($msg);
+        $category =Category::withTrashed()->findOrFail($id); 
+        if ($category->trashed())
+        {
+            $category->forceDelete();
+            $message = 'Category Deleted Successfully' ; 
+            return response()->json($message); 
+        } 
+        else
+        {
+            $category->delete();
+            $msg="Category Trashed Successfully";
+            return response()->json($msg);
+        }        
+    }
+
+    // Super Admin Functions
+    public function trashed()
+    {
+        $category = Category::onlyTrashed()->get() ; 
+        return response()->json($category) ; 
+    }
+
+    public function restore($id)
+    {
+        Category::onlyTrashed()->findOrFail($id)->restore() ; 
+        $message = 'Category Restored Successfully' ; 
+        return response()->json($message) ; 
     }
 }

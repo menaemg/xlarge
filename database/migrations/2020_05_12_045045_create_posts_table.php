@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('image');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')
                 ->references('id')

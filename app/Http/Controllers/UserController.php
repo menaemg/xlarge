@@ -119,10 +119,33 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        $msg="User deleted";
+        $user = User::withTrashed()->findOrFail($id); 
+        if ($user->trashed())
+        {
+            $user->forceDelete(); 
+            $message = 'User Deleted Successfully'; 
+            return response()->json($message); 
+        }
+        else
+        {
+            $user->delete();
+            $msg="User Trashed Successfully";
+            return response()->json($msg);
+        }
+    }
+
+    public function trashed()
+    {
+        $users = User::onlyTrashed()->get(); 
+        return response()->json($users);
+    }
+
+    public function restore($id)
+    {
+        User::onlyTrashed()->findOrFail($id)->restore();
+        $msg="User Restored Successfully";
         return response()->json($msg);
     }
 }

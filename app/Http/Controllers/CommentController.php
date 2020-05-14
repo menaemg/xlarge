@@ -103,11 +103,33 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
+        $comment = Comment::withTrashed()->findOrFail($id); 
+        if($comment->trashed())
+        {
+            $comment->forceDelete(); 
+            $message = 'Comment Deleted Successfully' ;
+            return response()->json($message) ;
+        }
+        else
+        {
+            $comment->delete();
+            $msg="Comment Trashed Successfully";
+            return response()->json($msg);
+        }
+    }
 
-        $comment->delete();
-        $msg="Comment deleted";
-        return response()->json($msg);
+    public function trashed()
+    {
+        $trashed = Comment::onlyTrashed()->get(); 
+        return response()->json($trashed); 
+    }
+
+    public function restore($id)
+    {
+        Comment::onlyTrashed()->findOrFail($id)->restore(); 
+        $message = 'Comment Restored Successfully' ;
+        return response()->json($message) ; 
     }
 }

@@ -122,11 +122,33 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::withTrashed()->findOrFail($id) ; 
+        if ($post->trashed())
+        {
+            $post->forceDelete(); 
+            $message = 'Post Deleted Successfully'; 
+            return response()->json($message); 
+        }
+        else
+        {
+            $post->delete();
+            $msg="Post Trashed Successfully";
+            return response()->json($msg);
+        }
+    }
 
-        $post->delete();
-        $msg="success";
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->get(); 
+        return response()->json($posts);
+    }
+
+    public function restore($id)
+    {
+        Post::onlyTrashed()->findOrFail($id)->restore();
+        $msg="Post Restored Successfully";
         return response()->json($msg);
     }
 }
