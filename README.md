@@ -7,31 +7,31 @@
 #
 #### 1)	Post
     •	Id
-    •	Title           => string
-    •	Content         => text
-    •	Status          => Boolean  ( private or public )
-    •	Image           => string , image
+    •	Title           => string|required|min:3|max:255
+    •	Content         => string|required|min:3|max:10000
+    •	Status          => boolean  ( private or public )
+    •	Image           => required|image
     •	User_id         => ones to many relation with User
     •	Category_id     => one to many relation with Category
 #
 #### 2)	User
     •	Id
-    •	Name			=> string
-    •	Email			=> string , email
-    •	Password		=> string
-    •	Role			=> in ( 0 , 1 , 2 , 3 ) | 0 = user , 1 = author , 2 = editor , 3 = admin 
-    •	Image			=> string , image
+    •	Name			=> string|required|max:255|min:3
+    •	Email			=> email|required|unique
+    •	Password		=> required', 'min:6', 'confirmed'  => password_confirmed
+    •	Rule			=> in:0,1,2,3 | 0 = user , 1 = author , 2 = editor , 3 = admin 
+    •	Image			=> required|image
 #
 #### 3)	Comment
     •	Id
-    •	Content		    => text
+    •	Content		    => required|max:1000|min:1
     •	Post_id		    => one to many relation with Post
     •	User_id		    => one to many relation with User
 #
 #### 4)	Category
     •	Id
-    •	Name			=> string
-    •	Description		=> text
+    •	Name			=> required|max:255|min:3|unique
+    •	Description		=> required|min:3|max:1000
     •	Parent			=> nullable | Category_id  , one to many relation with Category
 #
 ####  //Tag can added in future
@@ -55,16 +55,24 @@
 ### Posts Api
     •	All posts           /api/posts/                     method:get
     •	One Post            /api/posts/{id}                 method:get
+    •	Create Post         /api/posts                      method:post         respond:'success' or array with errors
+    •	Edit Post           /api/posts{id}                  method:put          respond:'success' or array with errors
     •	Delete Post         /api/posts/delete/{id}          method:delete
 ### Users Api
     •	All Users           /api/users                      method:get
     •	One User            /api/users/{id}                 method:get
+    •	Create User         /api/users                      method:post         respond:'success' or array with errors
+    •	Edit User           /api/users/{id}                 method:put          respond:'success' or array with errors
     •	Delete User         /api/users/delete/{id}          method:delete
 ### Categories Api
     •	All Categories      /api/categories                 method:get
     •	One Category        /api/categories/{id}            method:get
+    •	Create Category     /api/categories                 method:post         respond:'success' or array with errors
+    •	Edit Category       /api/categories/{id}            method:put          respond:'success' or array with errors
     •	Delete Cartegory    /api/categories/delete/{id}     method:delete
 ### Comments Api
     •	All Comments        /api/comments                   method:get
     •	One Comment         /api/comments/{id}              method:get
+    •	Create Comment      /api/comments                   method:post         respond:'success' or array with errors
+    •	Edit Comment        /api/comments/{id}              method:put          respond:'success' or array with errors
     •	Delete Comment      /api/comments/delete/{id}       method:delete

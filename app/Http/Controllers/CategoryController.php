@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Validator;
 use Illuminate\Http\Request;
+use Validator;
 
 class CategoryController extends Controller
 {
@@ -36,7 +36,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required','max:255' , 'min:3', 'unique:categories'],
+            'description' => 'required|min:3|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        Category::create( $request->all());
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**
@@ -70,26 +81,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required','max:255' , 'min:3', \Illuminate\Validation\Rule::unique('categories')->ignore($category) ],
+            'description' => 'min:3',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
 
-            // $validator = Validator::make($request->all(), [
-            //     'name' => 'required|min:3|max:100|unique:categories',
-            //     'description' => 'required|min:10|max:1000'
-            // ]);
-
-            // if ($validator->fails()) {
-            //     //dd($validator);
-            //     return response()->json($validator->messages(), 200);
-            // }
-
-            // $category->update([$request->all()]);
-
-            // $msg="Category Updated";
-            //     return response()->json($msg);
-
-            return response()->json($request->name);
-
-
+        $category->update( $request->all());
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**

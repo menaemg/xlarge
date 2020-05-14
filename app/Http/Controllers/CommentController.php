@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Validator;
 
 class CommentController extends Controller
 {
@@ -35,7 +36,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'content' => ['required','max:1000' , 'min:1'],
+            'post_id' => 'exists:posts,id',
+            'user_id' => 'exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        Comment::create( $request->all());
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**
@@ -69,7 +82,19 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'content' => ['required','max:255' , 'min:1'],
+            'post_id' => 'exists:posts,id',
+            'user_id' => 'exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        $comment->update( $request->all());
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**
@@ -80,7 +105,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-   
+
         $comment->delete();
         $msg="Comment deleted";
         return response()->json($msg);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Validator;
 
 class PostController extends Controller
 {
@@ -35,7 +36,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'string|required|min:3|max:255',
+            'content' => 'string|required|min:3|max:10000',
+            'status' => 'boolean',
+            'image' => 'required|image',
+            'user_id' => 'exists:users,id',
+            'category_id' => 'exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'status' => $request->status,
+            'image' => $request->image->store('images', 'public'),
+            'user_id' => $request->user_id,
+            'category_id' => $request->category_id,
+        ]);
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**
@@ -69,7 +91,29 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'string|required|max:255|min:3',
+            'content' => 'string|required|min:3|max:10000',
+            'status' => 'boolean',
+            'image' => 'required|image',
+            'user_id' => 'exists:users,id',
+            'category_id' => 'exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        $post->update([ $request->all()
+            // 'title' => $request->title,
+            // 'content' => $request->content,
+            // 'status' => $request->status,
+            // 'image' => $request->image->store('images', 'public'),
+            // 'user_id' => $request->user_id,
+            // 'category_id' => $request->category_id,
+        ]);
+        $ms = 'success';
+        return response()->json($ms);
     }
 
     /**
@@ -80,9 +124,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        
+
         $post->delete();
-        $msg="Post deleted";
+        $msg="success";
         return response()->json($msg);
     }
 }
