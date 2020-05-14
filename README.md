@@ -32,7 +32,7 @@
     •	Id
     •	Name            => required|max:255|min:3|unique
     •	Description     => required|min:3|max:1000
-    •	Parent           => nullable | Category_id  , one to many relation with Category
+    •	Parent          => nullable | Category_id  , one to many relation with Category
 #
 ####  //Tag can added in future
 #
