@@ -11,7 +11,7 @@
     •	Content         => string|required|min:3|max:10000
     •	Status          => boolean  ( private or public )
     •	Image           => required|image
-    •	User_id         => ones to many relation with User
+    •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
 #
 #### 2)	User
