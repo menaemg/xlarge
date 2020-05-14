@@ -16,23 +16,23 @@
 #
 #### 2)	User
     •	Id
-    •	Name			=> string|required|max:255|min:3
-    •	Email			=> email|required|unique
-    •	Password		=> required', 'min:6', 'confirmed'  => password_confirmed
-    •	Rule			=> in:0,1,2,3 | 0 = user , 1 = author , 2 = editor , 3 = admin 
-    •	Image			=> required|image
+    •	Name            => string|required|max:255|min:3
+    •	Email           => email|required|unique
+    •	Password        => required', 'min:6', 'confirmed'  => password_confirmed
+    •	Rule            => in:0,1,2,3 | 0 = user , 1 = author , 2 = editor , 3 = admin 
+    •	Image           => required|image
 #
 #### 3)	Comment
     •	Id
-    •	Content		    => required|max:1000|min:1
-    •	Post_id		    => one to many relation with Post
-    •	User_id		    => one to many relation with User
+    •	Content         => required|max:1000|min:1
+    •	Post_id         => one to many relation with Post
+    •	User_id         => one to many relation with User
 #
 #### 4)	Category
     •	Id
-    •	Name			=> required|max:255|min:3|unique
-    •	Description		=> required|min:3|max:1000
-    •	Parent			=> nullable | Category_id  , one to many relation with Category
+    •	Name            => required|max:255|min:3|unique
+    •	Description     => required|min:3|max:1000
+    •	Parent          => nullable | Category_id  , one to many relation with Category
 #
 ####  //Tag can added in future
 #
@@ -71,8 +71,8 @@
     •	Edit Category       /api/categories/{id}            method:put          response:'success' or array with errors
     •	Delete Cartegory    /api/categories/delete/{id}     method:delete       response:'success' or array with errors
 ### Comments Api
-    •	All Comments        /api/comments                   method:get
-    •	One Comment         /api/comments/{id}              method:get
+    •	All Comments        /api/comments                   method:get          response:json data
+    •	One Comment         /api/comments/{id}              method:get          response:json data
     •	Create Comment      /api/comments                   method:post         response:'success' or array with errors
     •	Edit Comment        /api/comments/{id}              method:put          response:'success' or array with errors
     •	Delete Comment      /api/comments/delete/{id}       method:delete       response:'success' or array with errors
