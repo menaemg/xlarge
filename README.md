@@ -53,26 +53,26 @@
 ##
 ## Json Api Services (index and show and delete)
 ### Posts Api
-    •	All posts           /api/posts/                     method:get
-    •	One Post            /api/posts/{id}                 method:get
-    •	Create Post         /api/posts                      method:post         respond:'success' or array with errors
-    •	Edit Post           /api/posts{id}                  method:put          respond:'success' or array with errors
-    •	Delete Post         /api/posts/delete/{id}          method:delete
+    •	All posts           /api/posts/                     method:get          response:json data          
+    •	One Post            /api/posts/{id}                 method:get          response:json data
+    •	Create Post         /api/posts                      method:post         response:'success' or array with errors
+    •	Edit Post           /api/posts{id}                  method:put          response:'success' or array with errors
+    •	Delete Post         /api/posts/delete/{id}          method:delete       response:'success' or array with errors
 ### Users Api
-    •	All Users           /api/users                      method:get
-    •	One User            /api/users/{id}                 method:get
-    •	Create User         /api/users                      method:post         respond:'success' or array with errors
-    •	Edit User           /api/users/{id}                 method:put          respond:'success' or array with errors
-    •	Delete User         /api/users/delete/{id}          method:delete
+    •	All Users           /api/users                      method:get          response:json data
+    •	One User            /api/users/{id}                 method:get          response:json data
+    •	Create User         /api/users                      method:post         response:'success' or array with errors
+    •	Edit User           /api/users/{id}                 method:put          response:'success' or array with errors
+    •	Delete User         /api/users/delete/{id}          method:delete       response:'success' or array with errors
 ### Categories Api
-    •	All Categories      /api/categories                 method:get
-    •	One Category        /api/categories/{id}            method:get
-    •	Create Category     /api/categories                 method:post         respond:'success' or array with errors
-    •	Edit Category       /api/categories/{id}            method:put          respond:'success' or array with errors
-    •	Delete Cartegory    /api/categories/delete/{id}     method:delete
+    •	All Categories      /api/categories                 method:get          response:json data
+    •	One Category        /api/categories/{id}            method:get          response:json data
+    •	Create Category     /api/categories                 method:post         response:'success' or array with errors
+    •	Edit Category       /api/categories/{id}            method:put          response:'success' or array with errors
+    •	Delete Cartegory    /api/categories/delete/{id}     method:delete       response:'success' or array with errors
 ### Comments Api
     •	All Comments        /api/comments                   method:get
     •	One Comment         /api/comments/{id}              method:get
-    •	Create Comment      /api/comments                   method:post         respond:'success' or array with errors
-    •	Edit Comment        /api/comments/{id}              method:put          respond:'success' or array with errors
-    •	Delete Comment      /api/comments/delete/{id}       method:delete
+    •	Create Comment      /api/comments                   method:post         response:'success' or array with errors
+    •	Edit Comment        /api/comments/{id}              method:put          response:'success' or array with errors
+    •	Delete Comment      /api/comments/delete/{id}       method:delete       response:'success' or array with errors
