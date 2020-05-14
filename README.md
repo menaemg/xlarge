@@ -44,7 +44,7 @@
 #### 3- rename .env.example to .env and create new database and set DBs name & MySQl user & MySQl password in this file
 #### 4- in Project folder run this comands
     •	$ composer install
-    •	$ php artisan appkey:genurate
+    •	$ php artisan key:generate
     •	$ php artisan migrate
     •	$ composer dump-autoload
     •	$ php artisan db:seed
