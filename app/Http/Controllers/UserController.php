@@ -38,25 +38,29 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'string|required|max:255|min:3',
-            'email' => 'email|required|unique:users',
+            'name' => 'required|string|max:255|min:3',
+            'email' => 'required|email|unique:users',
             'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
             'image' => 'required|image',
             'rule' => 'in:0,1,2,3',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'image' => $request->image->store('images', 'public'),
             'rule' => $request->rule,
         ]);
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'user created successful';
+
+        return jsonResponse($status, $message , $user );
     }
 
     /**
@@ -92,15 +96,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $validator = Validator::make($request->all(), [
-            'name' => 'string|required|max:255|min:3',
-            'email' => 'email|required|unique:users',
+            'name' => 'required|string|max:255|min:3',
+            'email' => 'required' ,'email', \Illuminate\Validation\Rule::unique('users')->ignore($user) ,
             'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
             'image' => 'required|image',
             'rule' => 'in:0,1,2,3',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            //$status = 0;
+            return jsonResponse(0, $validator->messages() , $request->all());
         }
         $user->update([
             'name' => $request->name,
@@ -109,8 +114,11 @@ class UserController extends Controller
             'image' => $request->image->store('images', 'public'),
             'rule' => $request->rule,
         ]);
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'user updated successful';
+
+        return jsonResponse($status, $message , $user );
     }
 
     /**
@@ -121,31 +129,35 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::withTrashed()->findOrFail($id); 
+        $user = User::withTrashed()->findOrFail($id);
         if ($user->trashed())
         {
-            $user->forceDelete(); 
-            $message = 'User Deleted Successfully'; 
-            return response()->json($message); 
+            $user->forceDelete();
+            $status = 1;
+            $message="User Deleted successfully";
+            return jsonResponse($status, $message , $user);
         }
         else
         {
             $user->delete();
-            $msg="User Trashed Successfully";
-            return response()->json($msg);
+            $status = 1;
+            $message="User Deleted successfully";
+            return jsonResponse($status, $message , $user);
         }
     }
 
     public function trashed()
     {
-        $users = User::onlyTrashed()->get(); 
+        $users = User::onlyTrashed()->get();
         return response()->json($users);
     }
 
     public function restore($id)
     {
-        User::onlyTrashed()->findOrFail($id)->restore();
-        $msg="User Restored Successfully";
-        return response()->json($msg);
+        $user = User::onlyTrashed()->findOrFail($id)->restore();
+
+        $status = 1;
+        $message="User Restored successfully";
+        return jsonResponse($status, $message , $user);
     }
 }

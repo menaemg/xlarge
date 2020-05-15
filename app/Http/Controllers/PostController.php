@@ -46,9 +46,10 @@ class PostController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'status' => $request->status,
@@ -56,8 +57,11 @@ class PostController extends Controller
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'post created successfully';
+
+        return jsonResponse($status, $message , $post );
     }
 
     /**
@@ -101,19 +105,23 @@ class PostController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
 
-        $post->update([ $request->all()
-            // 'title' => $request->title,
-            // 'content' => $request->content,
-            // 'status' => $request->status,
-            // 'image' => $request->image->store('images', 'public'),
-            // 'user_id' => $request->user_id,
-            // 'category_id' => $request->category_id,
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'status' => $request->status,
+            'image' => $request->image->store('images', 'public'),
+            'user_id' => $request->user_id,
+            'category_id' => $request->category_id,
         ]);
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'post updated successfully';
+
+        return jsonResponse($status, $message , $post );
     }
 
     /**
@@ -124,31 +132,34 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::withTrashed()->findOrFail($id) ; 
+        $post = Post::withTrashed()->findOrFail($id) ;
         if ($post->trashed())
         {
-            $post->forceDelete(); 
-            $message = 'Post Deleted Successfully'; 
-            return response()->json($message); 
+            $post->forceDelete();
+            $status = 1;
+            $message="Post Deleted successfully";
+            return jsonResponse($status, $message , $post);
         }
         else
         {
             $post->delete();
-            $msg="Post Trashed Successfully";
-            return response()->json($msg);
+            $status = 1;
+            $message="User Trashed successfully";
+            return jsonResponse($status, $message , $post);
         }
     }
 
     public function trashed()
     {
-        $posts = Post::onlyTrashed()->get(); 
+        $posts = Post::onlyTrashed()->get();
         return response()->json($posts);
     }
 
     public function restore($id)
     {
-        Post::onlyTrashed()->findOrFail($id)->restore();
-        $msg="Post Restored Successfully";
-        return response()->json($msg);
+        $post = Post::onlyTrashed()->findOrFail($id)->restore();
+        $status = 1;
+        $message="Post Restored successfully";
+        return jsonResponse($status, $message , $post);
     }
 }

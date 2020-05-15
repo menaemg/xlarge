@@ -85,10 +85,10 @@
                 </div>
 
                 <div class="links">
-                    <a href="http://localhost/xlarge/public/api/posts/">Posts</a>
-                    <a href="http://localhost/xlarge/public/api/users/">Users</a>
-                    <a href="http://localhost/xlarge/public/api/categories/">Categois</a>
-                    <a href="http://localhost/xlarge/public/api/comments/">Comments</a>
+                    <a href="{{URL::to('/api/posts')}}">Posts</a>
+                    <a href="{{URL::to('/api/users')}}">Users</a>
+                    <a href="{{URL::to('/api/categories')}}">Categories</a>
+                    <a href="{{URL::to('/api/comments')}}">Comments</a>
                 </div>
             </div>
         </div>

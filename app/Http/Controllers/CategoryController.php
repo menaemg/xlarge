@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Validator;
+use App\Helpers\helper;
 
 class CategoryController extends Controller
 {
@@ -42,12 +43,16 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
 
-        Category::create( $request->all());
-        $ms = 'success';
-        return response()->json($ms);
+        $category = Category::create( $request->all());
+
+        $status = 1;
+        $message = 'category created successful';
+
+        return jsonResponse($status, $message , $category );
     }
 
     /**
@@ -87,12 +92,16 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
 
         $category->update( $request->all());
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'category updated successful';
+
+        return jsonResponse($status, $message , $category );
     }
 
     /**
@@ -105,32 +114,35 @@ class CategoryController extends Controller
      // Added Soft Delete To destroy function
     public function destroy($id)
     {
-        $category =Category::withTrashed()->findOrFail($id); 
+        $category =Category::withTrashed()->findOrFail($id);
         if ($category->trashed())
         {
             $category->forceDelete();
-            $message = 'Category Deleted Successfully' ; 
-            return response()->json($message); 
-        } 
+            $status = 1;
+            $message="Category Deleted successfully";
+            return jsonResponse($status, $message , $category);
+        }
         else
         {
             $category->delete();
-            $msg="Category Trashed Successfully";
-            return response()->json($msg);
-        }        
+            $status = 1;
+            $message="Category Trashed successfully";
+            return jsonResponse($status, $message , $category);
+        }
     }
 
     // Super Admin Functions
     public function trashed()
     {
-        $category = Category::onlyTrashed()->get() ; 
-        return response()->json($category) ; 
+        $category = Category::onlyTrashed()->get() ;
+        return response()->json($category) ;
     }
 
     public function restore($id)
     {
-        Category::onlyTrashed()->findOrFail($id)->restore() ; 
-        $message = 'Category Restored Successfully' ; 
-        return response()->json($message) ; 
+        $category = Category::onlyTrashed()->findOrFail($id)->restore() ;
+        $status = 1;
+        $message="Category Restored successfully";
+        return jsonResponse($status, $message , $category);
     }
 }

@@ -37,18 +37,22 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'content' => ['required','max:1000' , 'min:1'],
-            'post_id' => 'exists:posts,id',
-            'user_id' => 'exists:users,id',
+            'content' => 'required|max:1000|min:1',
+            'post_id' => 'required|exists:posts,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
 
-        Comment::create( $request->all());
-        $ms = 'success';
-        return response()->json($ms);
+        $comment = Comment::create( $request->all());
+
+        $status = 1;
+        $message = 'comments created successfully';
+
+        return jsonResponse($status, $message , $comment );
     }
 
     /**
@@ -83,18 +87,22 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $validator = Validator::make($request->all(), [
-            'content' => ['required','max:255' , 'min:1'],
-            'post_id' => 'exists:posts,id',
-            'user_id' => 'exists:users,id',
+            'content' => 'required|max:255|min:1',
+            'post_id' => 'required|exists:posts,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
         }
 
         $comment->update( $request->all());
-        $ms = 'success';
-        return response()->json($ms);
+
+        $status = 1;
+        $message = 'comments update successfully';
+
+        return jsonResponse($status, $message , $comment );
     }
 
     /**
@@ -105,31 +113,34 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::withTrashed()->findOrFail($id); 
+        $comment = Comment::withTrashed()->findOrFail($id);
         if($comment->trashed())
         {
-            $comment->forceDelete(); 
+            $comment->forceDelete();
+            $status = 1;
             $message = 'Comment Deleted Successfully' ;
-            return response()->json($message) ;
+            return jsonResponse($status, $message , $comment );
         }
         else
         {
             $comment->delete();
-            $msg="Comment Trashed Successfully";
-            return response()->json($msg);
+            $status = 1;
+            $message = 'Comment Trashed Successfully' ;
+            return jsonResponse($status, $message , $comment );
         }
     }
 
     public function trashed()
     {
-        $trashed = Comment::onlyTrashed()->get(); 
-        return response()->json($trashed); 
+        $trashed = Comment::onlyTrashed()->get();
+        return response()->json($trashed);
     }
 
     public function restore($id)
     {
-        Comment::onlyTrashed()->findOrFail($id)->restore(); 
+        $comment = Comment::onlyTrashed()->findOrFail($id)->restore();
+        $status = 1;
         $message = 'Comment Restored Successfully' ;
-        return response()->json($message) ; 
+        return jsonResponse($status, $message , $comment );
     }
 }
