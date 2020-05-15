@@ -10,36 +10,72 @@
     •	Image           => nullable|image
     •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
+##### json data
 ```javascript
-"post": {
-    "id": 1 
-    "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
-    "title": "title", // string | required
-    "content": "this is a content", // string | required
-    "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
-    "user_id": "1", // number | urequired | default user id login
-    "category_id": "1", // number | urequired | unrequired defualt = null
-    "updated_at": "2020-05-15T12:37:13.000000Z",
-    "created_at": "2020-05-15T12:37:13.000000Z",
-}
+    "post": {
+        "id": 1 
+        "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
+        "title": "title", // string | required
+        "content": "this is a content", // string | required
+        "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
+        "user_id": "1", // number | urequired | default user id login
+        "category_id": "1", // number | urequired | unrequired defualt = null
+        "updated_at": "2020-05-15T12:37:13.000000Z",
+        "created_at": "2020-05-15T12:37:13.000000Z",
+    }
 ```
 #### 2)	User
     •	Id
-    •	Name            => string|required|max:255|min:3
+    •	Name            => string|required|max:255
     •	Email           => email|required|unique
     •	Password        => required', 'min:6', 'confirmed'  => password_confirmed
     •	Rule            => in:0,1,2,3 | 0 = user , 1 = author , 2 = editor , 3 = admin 
     •	Image           => required|image
+##### json data
+```javascript
+    "user": {
+        "id": 1
+        "name": "abdalomnaem",  // required | max:255
+        "email": "menaem@test.com", // required 
+        "image": "images/msqyYigGPP9om3ucO24ACfzJXxd3y2iok3PSEZYG.jpeg", // image file | nullable 
+        "rule": "3", // unrequired | default = 0
+        "updated_at": "2020-05-15T15:11:25.000000Z",
+        "created_at": "2020-05-15T15:11:25.000000Z"
+    }
+```
 #### 3)	Comment
     •	Id
     •	Content         => required|max:1000|min:1
     •	Post_id         => one to many relation with Post
     •	User_id         => one to many relation with User
+##### json data
+```javascript
+    "comment": {
+        "id": 51
+        "content": "this is a comment", // Required | string
+        "user_id": "9",                 // number | UnRequired | defualt = id for user login 
+        "post_id": "9",                 // number | Required 
+        "updated_at": "2020-05-15T19:34:57.000000Z",
+        "created_at": "2020-05-15T19:34:57.000000Z",
+        "id": 51
+    }
+```
 #### 4)	Category
     •	Id
-    •	Name            => required|max:255|min:3|unique
+    •	Name            => required|max:255|unique
     •	Description     => required|min:3|max:1000
     •	Parent          => nullable | Category_id  , one to many relation with Category
+##### json data
+```javascript
+    "data": {
+        "id": 1,
+        "parent": null, // id of parent category | nullable
+        "name": "html", // string | required | unique
+        "description": "description", // string | required | unique
+        "updated_at": "2020-05-15T15:46:46.000000Z",
+        "created_at": "2020-05-15T15:46:46.000000Z"
+    }
+```
 ####  //Tag can added in future
 --------------------------------------------------
 ### How To Use

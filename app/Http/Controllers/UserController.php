@@ -38,23 +38,33 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|min:3',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
-            'image' => 'required|image',
-            'rule' => 'in:0,1,2,3',
+            'image' => 'nullable|image',
+            'rule' => 'nullable|in:0,1,2,3',
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+        if ($request->rule){
+            $rule = $request->rule;
+        } else {
+            $rule = 0;
+        }
+        if ($request->image){
+            $imageName = '/storage/' . $request->image->store('images', 'public');
+        } else {
+            $imageName = null;
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $request->image->store('images', 'public'),
-            'rule' => $request->rule,
+            'image' => $imageName,
+            'rule' => $rule,
         ]);
 
         $status = 1;
@@ -103,16 +113,34 @@ class UserController extends Controller
             'rule' => 'in:0,1,2,3',
         ]);
 
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required' ,'email', \Illuminate\Validation\Rule::unique('users')->ignore($user) ,
+            'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
+            'image' => 'nullable|image',
+            'rule' => 'nullable|in:0,1,2,3',
+        ]);
+
         if ($validator->fails()) {
-            //$status = 0;
-            return jsonResponse(0, $validator->messages() , $request->all());
+            $status = 0;
+            return jsonResponse($status, $validator->messages() , $request->all());
+        }
+        if ($request->rule){
+            $rule = $request->rule;
+        } else {
+            $rule = 0;
+        }
+        if ($request->image){
+            $imageName = '/storage/' . $request->image->store('images', 'public');
+        } else {
+            $imageName = null;
         }
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $request->image->store('images', 'public'),
-            'rule' => $request->rule,
+            'image' => $imageName,
+            'rule' => $rule,
         ]);
 
         $status = 1;

@@ -50,7 +50,7 @@ class PostController extends Controller
             return jsonResponse($status, $validator->messages() , $request->all());
         }
         if ($request->image){
-            $imageName = $request->image->store('images', 'public');
+            $imageName = '/storage/' . $request->image->store('images', 'public');
         } else {
             $imageName = null;
         };
@@ -120,7 +120,7 @@ class PostController extends Controller
             return jsonResponse($status, $validator->messages() , $request->all());
         }
         if ($request->image){
-            $imageName = $request->image->store('images', 'public');
+            $imageName = '/storage/' . $request->image->store('images', 'public');
         } else {
             $imageName = null;
         };
