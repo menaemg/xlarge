@@ -62,16 +62,16 @@
 --------------------------------------------------
 ### Json API Services [Get]
                     
-|Action  | Url  | response |
-|------------- | -------------|
-|get all posts       | api/posts             | json data|
-|get single post     | api/posts/{id}        | json data|
-|get all users       | api/users             | json data|
-|get single user     | api/users /{id}       | json data|
-|get all categories  | api/categories        | json data|
-|get single category | api/categories/{id}   | json data|
-|get all comments    | api/comments          | json data|
-|get single comment  | api/comments/{id}     | json data|
+| Action  | Url  | response |
+| ------------- | ------------- |
+| get all posts       | http://127.0.0.1:8000/api/posts             | json data |
+| get single post     | http://127.0.0.1:8000/api/posts/{id}        | json data |
+| get all users       | http://127.0.0.1:8000/api/users             | json data |
+| get single user     | http://127.0.0.1:8000/api/users /{id}       | json data 
+| get all categories  | http://127.0.0.1:8000/api/categories        | json data |
+| get single category | http://127.0.0.1:8000/api/categories/{id}   | json data |
+| get all comments    | http://127.0.0.1:8000/api/comments          | json data |
+| get single comment  | http://127.0.0.1:8000/api/comments/{id}     | json data |
 
 ### Json API Services action [CRUD]
                     
