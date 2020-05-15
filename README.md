@@ -10,19 +10,19 @@
     •	Image           => nullable|image
     •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
-    
-    "post": {
-        "id": 1 
-        "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
-        "title": "title", // string | required
-        "content": "this is a content", // string | required
-        "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
-        "user_id": "1", // number | urequired | default user id login
-        "category_id": "1", // number | urequired | unrequired defualt = null
-        "updated_at": "2020-05-15T12:37:13.000000Z",
-        "created_at": "2020-05-15T12:37:13.000000Z",
-    }
-    
+```javascript
+"post": {
+    "id": 1 
+    "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
+    "title": "title", // string | required
+    "content": "this is a content", // string | required
+    "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
+    "user_id": "1", // number | urequired | default user id login
+    "category_id": "1", // number | urequired | unrequired defualt = null
+    "updated_at": "2020-05-15T12:37:13.000000Z",
+    "created_at": "2020-05-15T12:37:13.000000Z",
+}
+```
 #### 2)	User
     •	Id
     •	Name            => string|required|max:255|min:3
@@ -88,19 +88,21 @@
 `you need to send request with all required model data at least check model info`
 
 ### Json API action [CRUD] response
-    {
-        "status": 1,        // Boolean 1 for success 0 for fail
-        "message": "post created successfully", // message for action
-        "data": {           // model data
-            "status": "1",
-            "user_id": "9",
-            "category_id": "9",
-            "title": "title",
-            "content": "this is a content",
-            "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg",
-            "updated_at": "2020-05-15T12:37:13.000000Z",
-            "created_at": "2020-05-15T12:37:13.000000Z",
-            "id": 11
-        }
+```javascript
+{
+    "status": 1,        // Boolean 1 for success 0 for fail
+    "message": "post created successfully", // message for action
+    "data": {           // model data
+        "status": "1",
+        "user_id": "9",
+        "category_id": "9",
+        "title": "title",
+        "content": "this is a content",
+        "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg",
+        "updated_at": "2020-05-15T12:37:13.000000Z",
+        "created_at": "2020-05-15T12:37:13.000000Z",
+        "id": 11
     }
+}
+```
 
