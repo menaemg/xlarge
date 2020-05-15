@@ -76,19 +76,19 @@ get single comment  | api/comments/{id}     | json data
 ### Json API Services action [CRUD]
                     
 | Action  | Url  | method |
-------------- | -------------
+| ------------- | ------------- | ---------|
 | add post    | api/posts         | post|  
 | edit post   | api/posts/{id}    | patch |
 | delete post | api/users/{id}    | delete |
 | add user    | api/posts         | post |
 | edit user   | api/posts/{id}    | patch |
-| delete user | api/users/{id}    | delete
-| add category    | api/posts         | post  
-| edit category   | api/posts/{id}    | patch
-| delete category | api/users/{id}    | delete
-| add comment    | api/posts         | post  
-| edit comment   | api/posts/{id}    | patch
-| delete comment | api/users/{id}    | delete
+| delete user | api/users/{id}    | delete |
+| add category    | api/posts         | post |  
+| edit category   | api/posts/{id}    | patch |
+| delete category | api/users/{id}    | delete |
+| add comment    | api/posts         | post |
+| edit comment   | api/posts/{id}    | patch |
+| delete comment | api/users/{id}    | delete |
 
 ### Json API action [CRUD] request
 `you need to send request with all required model data at least check model info`
