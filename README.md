@@ -1,4 +1,4 @@
-#                   xlarge
+# xlarge API
 ####    Xarge project back-end with Laravel
 ## Project structure:
 ### Project will contain 4 models
@@ -10,7 +10,7 @@
     •	Image           => nullable|image
     •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
-```javascript
+    
     "post": {
         "id": 1 
         "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
@@ -22,8 +22,7 @@
         "updated_at": "2020-05-15T12:37:13.000000Z",
         "created_at": "2020-05-15T12:37:13.000000Z",
     }
-```
-#
+    
 #### 2)	User
     •	Id
     •	Name            => string|required|max:255|min:3
@@ -31,24 +30,19 @@
     •	Password        => required', 'min:6', 'confirmed'  => password_confirmed
     •	Rule            => in:0,1,2,3 | 0 = user , 1 = author , 2 = editor , 3 = admin 
     •	Image           => required|image
-#
 #### 3)	Comment
     •	Id
     •	Content         => required|max:1000|min:1
     •	Post_id         => one to many relation with Post
     •	User_id         => one to many relation with User
-#
 #### 4)	Category
     •	Id
     •	Name            => required|max:255|min:3|unique
     •	Description     => required|min:3|max:1000
     •	Parent          => nullable | Category_id  , one to many relation with Category
-#
 ####  //Tag can added in future
-#
-#
+--------------------------------------------------
 ### How To Use
-#
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
 #### 2- Download Project or Clone It
 #### 3- rename .env.example to .env and create new database and set DBs name & MySQl user & MySQl password in this file
@@ -63,7 +57,7 @@
 ### Json API Services [Get]
                     
 | Action  | Url  | response |
-| ------------- | ------------- |
+| ------------- | ------------- | ----------- |
 | get all posts       | http://127.0.0.1:8000/api/posts             | json data |
 | get single post     | http://127.0.0.1:8000/api/posts/{id}        | json data |
 | get all users       | http://127.0.0.1:8000/api/users             | json data |
@@ -94,7 +88,6 @@
 `you need to send request with all required model data at least check model info`
 
 ### Json API action [CRUD] response
-```javascript
     {
         "status": 1,        // Boolean 1 for success 0 for fail
         "message": "post created successfully", // message for action
@@ -110,4 +103,4 @@
             "id": 11
         }
     }
-```
+
