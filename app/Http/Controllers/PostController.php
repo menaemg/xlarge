@@ -37,23 +37,34 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'string|required|min:3|max:255',
-            'content' => 'string|required|min:3|max:10000',
-            'status' => 'boolean',
-            'image' => 'required|image',
+            'title' => 'string|required|max:255',
+            'content' => 'string|required|max:10000',
+            'status' => 'nullable|boolean',
+            'image' => 'nullable|image',
             'user_id' => 'exists:users,id',
-            'category_id' => 'exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+        if ($request->image){
+            $imageName = $request->image->store('images', 'public');
+        } else {
+            $imageName = null;
+        };
+        if ($request->status == null){
+            $status = 1;
+        } else {
+            $status = $request->status;
+        };
+
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'status' => $request->status,
-            'image' => $request->image->store('images', 'public'),
+            'status' => $status,
+            'image' => $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
@@ -96,24 +107,34 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'string|required|max:255|min:3',
-            'content' => 'string|required|min:3|max:10000',
-            'status' => 'boolean',
-            'image' => 'required|image',
+            'title' => 'string|required|max:255',
+            'content' => 'string|required|max:10000',
+            'status' => 'nullable|boolean',
+            'image' => 'nullable|image',
             'user_id' => 'exists:users,id',
-            'category_id' => 'exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+        if ($request->image){
+            $imageName = $request->image->store('images', 'public');
+        } else {
+            $imageName = null;
+        };
+        if ($request->status == null){
+            $status = 1;
+        } else {
+            $status = $request->status;
+        };
 
         $post->update([
             'title' => $request->title,
             'content' => $request->content,
-            'status' => $request->status,
-            'image' => $request->image->store('images', 'public'),
+            'status' => $status,
+            'image' => $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);

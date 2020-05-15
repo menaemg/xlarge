@@ -7,12 +7,25 @@
 #
 #### 1)	Post
     •	Id
-    •	Title           => string|required|min:3|max:255
-    •	Content         => string|required|min:3|max:10000
+    •	Title           => string|required|max:255
+    •	Content         => string|required|max:10000
     •	Status          => boolean  ( private or public )
-    •	Image           => required|image
+    •	Image           => nullable|image
     •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
+```javascript
+    "post": {
+        "id": 1 
+        "status": "1",  // boolean 0 for private 1 for public | unrequired defualt = 1
+        "title": "title", // string | required
+        "content": "this is a content", // string | required
+        "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
+        "user_id": "1", // number | urequired | default user id login
+        "category_id": "1", // number | urequired | unrequired defualt = null
+        "updated_at": "2020-05-15T12:37:13.000000Z",
+        "created_at": "2020-05-15T12:37:13.000000Z",
+    }
+```
 #
 #### 2)	User
     •	Id
@@ -50,7 +63,59 @@
     •	$ php artisan db:seed
     •	$ php artisan serve
 #### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
-##
+--------------------------------------------------
+### Json API Services [Get]
+                    
+Action  | Url  | response |
+------------- | -------------
+get all posts       | api/posts             | json data
+get single post     | api/posts/{id}        | json data
+get all users       | api/users             | json data
+get single user     | api/users /{id}       | json data
+get all categories  | api/categories        | json data
+get single category | api/categories/{id}   | json data
+get all comments    | api/comments          | json data
+get single comment  | api/comments/{id}     | json data
+
+### Json API Services action [CRUD]
+                    
+Action  | Url  | method 
+------------- | -------------
+add post    | api/posts         | post  
+edit post   | api/posts/{id}    | patch
+delete post | api/users/{id}    | delete
+add user    | api/posts         | post  
+edit user   | api/posts/{id}    | patch
+delete user | api/users/{id}    | delete
+add category    | api/posts         | post  
+edit category   | api/posts/{id}    | patch
+delete category | api/users/{id}    | delete
+add comment    | api/posts         | post  
+edit comment   | api/posts/{id}    | patch
+delete comment | api/users/{id}    | delete
+
+### Json API action [CRUD] request
+`you need to send request with all required model data at least check model info`
+
+## Json API action [CRUD] response
+```javascript
+    {
+        "status": 1,        // Boolean 1 for success 0 for fail
+        "message": "post created successfully", // message for action
+        "data": {           // model data
+            "status": "1",
+            "user_id": "9",
+            "category_id": "9",
+            "title": "title",
+            "content": "this is a content",
+            "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg",
+            "updated_at": "2020-05-15T12:37:13.000000Z",
+            "created_at": "2020-05-15T12:37:13.000000Z",
+            "id": 11
+        }
+    }
+```
+----------------------------------------------------------
 ## Json Api Services (index and show and delete)
 ### Posts Api
     •	All posts           /api/posts/                     method:get          response:json data          

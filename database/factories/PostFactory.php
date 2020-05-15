@@ -15,7 +15,7 @@ $factory->define(Post::class, function (Faker $faker) {
     Storage::disk('images')->put( $imageName , file_get_contents($url));
     return [
         'title' => $faker->sentence(3),
-        'content' => $faker->Text(3000),
+        'content' => $faker->Text(500),
         'user_id' => User::all()->random()->id,
         'user_id' => Category::all()->random()->id,
         'image' => $imageName
