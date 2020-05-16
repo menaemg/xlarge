@@ -63,7 +63,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $imageName,
+            'image' => 'http://127.0.0.1:8000//' . $imageName,
             'rule' => $rule,
         ]);
 
@@ -139,7 +139,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $imageName,
+            'image' => 'http://127.0.0.1:8000//' . $imageName,
             'rule' => $rule,
         ]);
 

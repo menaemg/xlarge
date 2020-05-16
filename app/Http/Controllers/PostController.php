@@ -64,7 +64,7 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
-            'image' => $imageName,
+            'image' => 'http://127.0.0.1:8000//' . $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
@@ -134,7 +134,7 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
-            'image' => $imageName,
+            'image' => 'http://127.0.0.1:8000//' .    $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);

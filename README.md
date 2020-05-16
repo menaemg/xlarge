@@ -53,7 +53,7 @@
     "comment": {
         "id": 51
         "content": "this is a comment", // Required | string
-        "user_id": "9",                 // number | UnRequired | defualt = id for user login 
+        "user_id": "9",                 // number | UnRequired | defualt = id for user login (default id = 1 before add auth)
         "post_id": "9",                 // number | Required 
         "updated_at": "2020-05-15T19:34:57.000000Z",
         "created_at": "2020-05-15T19:34:57.000000Z",

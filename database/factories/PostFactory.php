@@ -18,6 +18,6 @@ $factory->define(Post::class, function (Faker $faker) {
         'content' => $faker->Text(500),
         'user_id' => User::all()->random()->id,
         'user_id' => Category::all()->random()->id,
-        'image' =>  '/storage/images/' . $imageName
+        'image' =>  'http://127.0.0.1:8000///storage/images/' . $imageName
     ];
 });
