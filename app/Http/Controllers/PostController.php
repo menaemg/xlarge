@@ -83,6 +83,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $views = $post->views + 1;
+        $post->update([
+            'views' => $views
+        ]);
         return response()->json($post);
     }
 

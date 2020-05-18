@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->string('status')->default(1);
+            $table->integer('views')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
