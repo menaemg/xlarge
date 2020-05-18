@@ -39,12 +39,21 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:categories',
-            'description' => 'required|string|max:1000',
+            'description' => 'nullable|string|max:1000',
+            'subfrom' => 'nullable|exists:categories,id'
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
+        }
+
+        if ($request->subfrom){
+            // check if parent is sub from
+            $parentCategory = Category::find($request->subfrom);
+            if (!$parentCategory->subfrom == null){
+                return jsonResponse(0, ['subfrom' => "The selected subfrom is invalid."] , $request->all() );
+            }
         }
 
         $category = Category::create( $request->all());
@@ -88,7 +97,8 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string' , 'max:255', \Illuminate\Validation\Rule::unique('categories')->ignore($category) ],
-            'description' => 'required|string|max:1000',
+            'description' => 'nullable|string|max:1000',
+            'subfrom' => 'nullable|exists:categories,id'
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +106,19 @@ class CategoryController extends Controller
             return jsonResponse($status, $validator->messages() , $request->all());
         }
 
-        $category->update( $request->all());
+        // check if parent is sub from another category
+        if ($request->subfrom){
+            $parentCategory = Category::find($request->subfrom);
+            if (!$parentCategory->subfrom == null){
+                return jsonResponse(0, ['subfrom' => "The selected subfrom is invalid."] , $request->all() );
+            }
+            $subCategories = Category::where('subfrom' , $category->id);
+            if ($subCategories){
+                return jsonResponse(0, ['subfrom' => "Delete or remove sub categories first."] , $request->all() );
+            }
+        }
+
+        $category->update($request->all());
 
         $status = 1;
         $message = 'category updated successful';

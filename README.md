@@ -45,7 +45,7 @@
 ```
 #### 3)	Comment
     •	Id
-    •	Content         => required|max:1000|min:1
+    •	Content         => required|max:1000
     •	Post_id         => one to many relation with Post
     •	User_id         => one to many relation with User
 ##### json data
@@ -53,7 +53,7 @@
     "comment": {
         "id": 51
         "content": "this is a comment", // Required | string
-        "user_id": "9",                 // number | UnRequired | defualt = id for user login (default id = 1 before add auth)
+        "user_id": "9",                 // number | Required
         "post_id": "9",                 // number | Required 
         "updated_at": "2020-05-15T19:34:57.000000Z",
         "created_at": "2020-05-15T19:34:57.000000Z",
@@ -63,13 +63,13 @@
 #### 4)	Category
     •	Id
     •	Name            => required|max:255|unique
-    •	Description     => required|min:3|max:1000
+    •	Description     => nullable|max:1000
     •	Parent          => nullable | Category_id  , one to many relation with Category
 ##### json data
 ```javascript
     "data": {
         "id": 1,
-        "parent": null, // id of parent category | nullable
+        "subfrom": null, // id of parent category | nullable
         "name": "html", // string | required | unique
         "description": "description", // string | required | unique
         "updated_at": "2020-05-15T15:46:46.000000Z",

@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
 
-    use SoftDeletes ; 
-    protected $fillable = ['name', 'description'];
+    use SoftDeletes ;
+    protected $fillable = ['name', 'description', 'subfrom'];
     protected $attributes = [
-        'parent' => null,
+        'subfrom' => null,
+        'description' => null,
     ];
 }

@@ -37,7 +37,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'content' => 'required|max:1000|min:1',
+            'content' => 'required|max:1000',
             'post_id' => 'required|exists:posts,id',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -87,7 +87,7 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $validator = Validator::make($request->all(), [
-            'content' => 'required|max:255|min:1',
+            'content' => 'required|max:255',
             'post_id' => 'required|exists:posts,id',
             'user_id' => 'required|exists:users,id',
         ]);

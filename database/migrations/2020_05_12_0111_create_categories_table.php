@@ -16,13 +16,13 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             //link parent with category->id
-            $table->unsignedBigInteger('parent')->nullable();
-            $table->foreign('parent')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('subfrom')->nullable();
+            $table->foreign('subfrom')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
