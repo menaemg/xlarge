@@ -79,19 +79,36 @@
 #### 5)	Replay
     •	Id
     •	Content         => required|max:1000
-    •	Comment_id         => one to many relation with Post
+    •	Comment_id      => one to many relation with Post
     •	User_id         => one to many relation with User
 ##### json data
 ```javascript
     "Replay": {
         "id": 1
-        "content": "this is a replay to comment", // Required | string
-        "comment_id": "9",                 // number | Required
-        "post_id": "9",                 // number | Required 
+        "content": "this is a replay to comment",   // Required | string
+        "comment_id": "9",                          // number | Required
+        "post_id": "9",                             // number | Required 
         "updated_at": "2020-05-15T19:34:57.000000Z",
         "created_at": "2020-05-15T19:34:57.000000Z"
     }
 ```
+#### 6)	Likes
+    •	Id
+    •	post_id         => one to many relation with Post
+    •	User_id         => one to many relation with User
+##### json data
+```javascript
+    "likes": {
+        "id": 304
+        "user_id": "3",     // number | Required
+        "post_id": "3",     // number | Required 
+        "updated_at": "2020-05-19T07:58:53.000000Z",
+        "created_at": "2020-05-19T07:58:53.000000Z",
+    }
+```
+##### Like or unlike post http://127.0.0.1:8000/api/like/{post_id} and send user_id in post method
+##### check if user like the post http://127.0.0.1:8000/api/like/{post_id} and send user_id in get method
+##### get likes count for one post http://127.0.0.1:8000/api/likes/{post_id}  by get method
 ####  //Tag can added in future
 --------------------------------------------------
 ### How To Use

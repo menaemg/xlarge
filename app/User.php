@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function replays() {
         return $this->hasMany(App\User::class);
     }
+
+    public function likes() {
+        return $this->hasMany(App\User::class);
+    }
 }

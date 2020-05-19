@@ -34,5 +34,10 @@ Route::get('/comments/restore/{id}' ,'CommentController@restore');
 Route::get('/trashedreplays' , 'ReplayController@trashed') ;
 Route::get('/replays/restore/{id}' ,'ReplayController@restore');
 
-
-
+#################### Like Routes #######################
+// like or unlike post
+Route::post('/like/{id}' , 'LikeController@postLike') ;
+// check if user like this post
+Route::get('/like/{id}' , 'LikeController@likeStatus') ;
+// get likes count in post
+Route::get('/likes/{id}' , 'LikeController@postLikes') ;
