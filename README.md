@@ -20,6 +20,7 @@
         "image": "images/km7rXaP60hQdnH7Uw7l3K5x8LbbqCRhT3R6VX2Ld.jpeg", // image file | unrequired defualt = null
         "user_id": "1", // number | urequired | default user id login
         "category_id": "1", // number | urequired | unrequired defualt = null
+        "views": "5",       // post views counter
         "updated_at": "2020-05-15T12:37:13.000000Z",
         "created_at": "2020-05-15T12:37:13.000000Z",
     }
@@ -51,13 +52,12 @@
 ##### json data
 ```javascript
     "comment": {
-        "id": 51
+        "id": 1
         "content": "this is a comment", // Required | string
         "user_id": "9",                 // number | Required
         "post_id": "9",                 // number | Required 
         "updated_at": "2020-05-15T19:34:57.000000Z",
         "created_at": "2020-05-15T19:34:57.000000Z",
-        "id": 51
     }
 ```
 #### 4)	Category
@@ -76,6 +76,22 @@
         "created_at": "2020-05-15T15:46:46.000000Z"
     }
 ```
+#### 5)	Replay
+    •	Id
+    •	Content         => required|max:1000
+    •	Comment_id         => one to many relation with Post
+    •	User_id         => one to many relation with User
+##### json data
+```javascript
+    "Replay": {
+        "id": 1
+        "content": "this is a replay to comment", // Required | string
+        "comment_id": "9",                 // number | Required
+        "post_id": "9",                 // number | Required 
+        "updated_at": "2020-05-15T19:34:57.000000Z",
+        "created_at": "2020-05-15T19:34:57.000000Z"
+    }
+```
 ####  //Tag can added in future
 --------------------------------------------------
 ### How To Use
@@ -87,6 +103,7 @@
     •	$ php artisan key:generate
     •	$ php artisan migrate
     •	$ php artisan db:seed
+    •	$ php artisan storage:link
     •	$ php artisan serve
 #### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
 --------------------------------------------------

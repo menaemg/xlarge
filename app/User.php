@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
 
-    use SoftDeletes ; 
+    use SoftDeletes ;
     use Notifiable;
 
     /**
@@ -43,6 +43,9 @@ class User extends Authenticatable
         return $this->hasMany(App\User::class);
     }
     public function comments() {
+        return $this->hasMany(App\User::class);
+    }
+    public function replays() {
         return $this->hasMany(App\User::class);
     }
 }
