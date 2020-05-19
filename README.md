@@ -109,7 +109,8 @@
 ##### Like or unlike post method=get http://127.0.0.1:8000/api/like/{post_id} send user_id
 ##### check if user like the post method=get | http://127.0.0.1:8000/api/like/{post_id} send user_id
 ##### get likes count for one post method=get |http://127.0.0.1:8000/api/likes/{post_id}
-####  //Tag can added in future
+--------------------------------------------------
+####  Tag can added in future
 --------------------------------------------------
 ### How To Use
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
@@ -131,7 +132,7 @@
 | get all posts       | http://127.0.0.1:8000/api/posts             | json data |
 | get single post     | http://127.0.0.1:8000/api/posts/{id}        | json data |
 | get all users       | http://127.0.0.1:8000/api/users             | json data |
-| get single user     | http://127.0.0.1:8000/api/users /{id}       | json data 
+| get single user     | http://127.0.0.1:8000/api/users/{id}       | json data 
 | get all categories  | http://127.0.0.1:8000/api/categories        | json data |
 | get single category | http://127.0.0.1:8000/api/categories/{id}   | json data |
 | get all comments    | http://127.0.0.1:8000/api/comments          | json data |
