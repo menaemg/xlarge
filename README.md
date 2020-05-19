@@ -67,7 +67,7 @@
     •	Parent          => nullable | Category_id  , one to many relation with Category
 ##### json data
 ```javascript
-    "data": {
+    "Category": {
         "id": 1,
         "subfrom": null, // id of parent category | nullable
         "name": "html", // string | required | unique
@@ -106,9 +106,9 @@
         "created_at": "2020-05-19T07:58:53.000000Z",
     }
 ```
-##### Like or unlike post http://127.0.0.1:8000/api/like/{post_id} and send user_id in post method
-##### check if user like the post http://127.0.0.1:8000/api/like/{post_id} and send user_id in get method
-##### get likes count for one post http://127.0.0.1:8000/api/likes/{post_id}  by get method
+##### Like or unlike post method=get http://127.0.0.1:8000/api/like/{post_id} send user_id
+##### check if user like the post method=get | http://127.0.0.1:8000/api/like/{post_id} send user_id
+##### get likes count for one post method=get |http://127.0.0.1:8000/api/likes/{post_id}
 ####  //Tag can added in future
 --------------------------------------------------
 ### How To Use
