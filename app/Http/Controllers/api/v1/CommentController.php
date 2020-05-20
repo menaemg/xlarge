@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Comment;
 use Illuminate\Http\Request;
@@ -8,32 +8,15 @@ use Validator;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Get /comments
+    // show all comments data
     public function index()
     {
         return response()->json(Comment::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Post /comments/create
+    // Create new comments
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,41 +32,23 @@ class CommentController extends Controller
 
         $comment = Comment::create( $request->all());
 
+
+        // if commnet creat successfully
         $status = 1;
         $message = 'comments created successfully';
 
         return jsonResponse($status, $message , $comment );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
+    // Git  /comments/show/{comment}
+    // show one comment
     public function show(Comment $comment)
     {
         return response()->json($comment);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
+    // Get /comment/edite/{commnet}
+    // show all comment data
     public function update(Request $request, Comment $comment)
     {
         $validator = Validator::make($request->all(), [
@@ -99,18 +64,14 @@ class CommentController extends Controller
 
         $comment->update( $request->all());
 
+        // if comment update successfully
         $status = 1;
         $message = 'comments update successfully';
 
         return jsonResponse($status, $message , $comment );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $comment = Comment::withTrashed()->findOrFail($id);

@@ -26,8 +26,8 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'rule' => rand(0,3),
-        'image' => 'http://127.0.0.1:8000///storage/images/' . $imageName,
+        'rule' => rand(1,3),
+        'image' => 'http://127.0.0.1:8000//storage/images/' . $imageName,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];

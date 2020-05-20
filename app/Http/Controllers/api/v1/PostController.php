@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Post;
 use Illuminate\Http\Request;
@@ -8,32 +8,16 @@ use Validator;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    // Get /users
+    // show all user data
     public function index()
     {
         return response()->json(Post::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Post /users/create
+    // Create new user
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,11 +33,18 @@ class PostController extends Controller
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+
+
+        // store post image in storage/images
         if ($request->image){
-            $imageName = '/storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+
+        // set default image for post
         } else {
-            $imageName = null;
+            $imageName = 'http://127.0.0.1:8000///storage/images/xlarge.png';
         };
+
+        // set post status to public
         if ($request->status == null){
             $status = 1;
         } else {
@@ -64,50 +55,38 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
-            'image' => 'http://127.0.0.1:8000//' . $imageName,
+            'image' =>  $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
 
+
+        // if post created successfully
         $status = 1;
         $message = 'post created successfully';
 
         return jsonResponse($status, $message , $post );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+
+    // Get /posts/show/{post}
+    // show post info
     public function show(Post $post)
     {
+        // add 1 to post views counter
         $views = $post->views + 1;
+
+        // update post views
         $post->update([
             'views' => $views
         ]);
+
         return response()->json($post);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    // Post /posts/edit/{post}
+    // edit the post
     public function update(Request $request, Post $post)
     {
         $validator = Validator::make($request->all(), [
@@ -115,7 +94,7 @@ class PostController extends Controller
             'content' => 'string|required|max:10000',
             'status' => 'nullable|boolean',
             'image' => 'nullable|image',
-            'user_id' => 'exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
@@ -123,11 +102,17 @@ class PostController extends Controller
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+
+        // update post image
         if ($request->image){
-            $imageName = '/storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+
+        // set old image if request image is null
         } else {
-            $imageName = null;
+            $imageName = $post->image;
         };
+
+        // set default status for post to public
         if ($request->status == null){
             $status = 1;
         } else {
@@ -138,23 +123,21 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
-            'image' => 'http://127.0.0.1:8000//' .    $imageName,
+            'image' => $imageName,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
 
+
+        // if post updated successfull
         $status = 1;
         $message = 'post updated successfully';
 
         return jsonResponse($status, $message , $post );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    // post /posts/delete/{post}
+    // trashed one post
     public function destroy($id)
     {
         $post = Post::withTrashed()->findOrFail($id) ;
@@ -169,7 +152,7 @@ class PostController extends Controller
         {
             $post->delete();
             $status = 1;
-            $message="User Trashed successfully";
+            $message="Post Trashed successfully";
             return jsonResponse($status, $message , $post);
         }
     }

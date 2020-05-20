@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Like;
 use DB;
@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function postLikes($id){
+    // count likes in one post
+    public function postLikes(Request $request , $id){
 
         $likes = DB::table('likes')
         ->where('post_id', '=', $id)
@@ -18,11 +19,12 @@ class LikeController extends Controller
         return jsonResponse(1 , 'likes', $likes);
 
     }
+    // like or unlike post
     public function postLike(Request $request ,$id){
 
         $likepost = Like::where([
             'user_id' =>  $request->user_id ,
-            'post_id' =>  $request->$id
+            'post_id' =>  $id
         ]);
 
         $likes = DB::table('likes')
@@ -52,11 +54,12 @@ class LikeController extends Controller
         }
     }
 
+    // check if user like this post or not
     public function likeStatus(Request $request ,$id){
 
         $likepost = Like::where([
             'user_id' =>  $request->user_id ,
-            'post_id' =>  $request->$id
+            'post_id' =>  $id
         ]);
 
         $likes = DB::table('likes')
@@ -65,9 +68,9 @@ class LikeController extends Controller
                 ->get();
 
         if ($likes->count()){
-            return jsonResponse(1 , 'user like this post');
+            return jsonResponse(1 , 'user like this post' , 1);
         } else {
-            return jsonResponse(0 , 'user unlike this post');
+            return jsonResponse(0 , 'user unlike this post' , 0);
         };
     }
 }

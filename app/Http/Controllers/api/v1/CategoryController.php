@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Category;
 use Illuminate\Http\Request;
@@ -9,32 +9,16 @@ use App\Helpers\helper;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    // Get /categories
+    // show all categories data
     public function index()
     {
         return response()->json(Category::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Post /categories/create
+    // create new category
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -58,41 +42,25 @@ class CategoryController extends Controller
 
         $category = Category::create( $request->all());
 
+
+        // if category created successfully
         $status = 1;
-        $message = 'category created successful';
+        $message = 'category created successfully';
 
         return jsonResponse($status, $message , $category );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
+    // Get /categories/show/{categories}
+    // show category data
     public function show(Category $category)
     {
         return response()->json($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+    // Post /categories/update/{categories}
+    // update onr category
     public function update(Request $request, Category $category)
     {
         $validator = Validator::make($request->all(), [
@@ -106,13 +74,18 @@ class CategoryController extends Controller
             return jsonResponse($status, $validator->messages() , $request->all());
         }
 
-        // check if parent is sub from another category
         if ($request->subfrom){
+            // check if parent is sub from another category
             $parentCategory = Category::find($request->subfrom);
             if (!$parentCategory->subfrom == null){
-                return jsonResponse(0, ['subfrom' => "The selected subfrom is invalid."] , $request->all() );
+                return jsonResponse(0, ['subfrom' => "The selected parent is invalid."] , $request->all() );
             }
-            $subCategories = Category::where('subfrom' , $category->id);
+            // check if subform is the parent
+            if ($request->subfrom == $category->id ){
+                return jsonResponse(0, ['subfrom' => "parent can't be sub category in same time."] , $request->all() );
+            }
+            // check if this category has sub categories
+            $subCategories = Category::where('subfrom' , $category->id)->count();
             if ($subCategories){
                 return jsonResponse(0, ['subfrom' => "Delete or remove sub categories first."] , $request->all() );
             }
@@ -120,20 +93,16 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
+
+        // if category updated successfully
         $status = 1;
-        $message = 'category updated successful';
+        $message = 'category updated successfully';
 
         return jsonResponse($status, $message , $category );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
 
-     // Added Soft Delete To destroy function
+    // Added Soft Delete To destroy function
     public function destroy($id)
     {
         $category =Category::withTrashed()->findOrFail($id);
@@ -146,6 +115,12 @@ class CategoryController extends Controller
         }
         else
         {
+            // check if this category has sub categories
+            $subCategories = Category::where('subfrom' , $category->id)->count();
+            if ($subCategories){
+                return jsonResponse(0, ['subfrom' => "Delete or remove sub categories first."] , $category );
+            }
+
             $category->delete();
             $status = 1;
             $message="Category Trashed successfully";

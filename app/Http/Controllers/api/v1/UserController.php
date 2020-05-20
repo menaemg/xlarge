@@ -1,40 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
 use Hash;
+use Storage;
+
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Get /users
+    // show all user data
     public function index()
     {
         return response()->json(User::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    // Post /users/create
+    // Create new user
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,73 +36,60 @@ class UserController extends Controller
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+
+
+        // set default value for rule
         if ($request->rule){
             $rule = $request->rule;
         } else {
             $rule = 0;
         }
+
+        // store user image in storage
         if ($request->image){
             $imageName = '/storage/' . $request->image->store('images', 'public');
+        // set default user image
         } else {
-            $imageName = null;
+            $url = 'https://api.adorable.io/avatars/240/'. rand(1,1000);
+            $contents = file_get_contents($url);
+            $image =  md5($contents) . '.png';
+            $imageName = 'storage/images/' . md5($contents) . '.png';
+            Storage::disk('images')->put( $image , file_get_contents($url));
         }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => 'http://127.0.0.1:8000//' . $imageName,
+            'image' => 'http://127.0.0.1:8000///' . $imageName,
             'rule' => $rule,
         ]);
 
+        // if user created successfully
         $status = 1;
         $message = 'user created successful';
 
         return jsonResponse($status, $message , $user );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+    // Get /users/show/{user}
+    // show user info
     public function show($id)
     {
         return response()->json(User::findOrFail($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Post /users/edit/{user}
+    // edit the user
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|min:3',
-            'email' => 'required' ,'email', \Illuminate\Validation\Rule::unique('users')->ignore($user) ,
-            'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
-            'image' => 'required|image',
-            'rule' => 'in:0,1,2,3',
-        ]);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required' ,'email', \Illuminate\Validation\Rule::unique('users')->ignore($user) ,
+            'email' => ['required' ,'email' , \Illuminate\Validation\Rule::unique('users')->ignore($user->email)] ,
             'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
             'image' => 'nullable|image',
             'rule' => 'nullable|in:0,1,2,3',
@@ -125,36 +99,40 @@ class UserController extends Controller
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
         }
+
+        // set default value for rule
         if ($request->rule){
             $rule = $request->rule;
         } else {
             $rule = 0;
         }
+
+        // store user image in storage
         if ($request->image){
-            $imageName = '/storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+        // use old image
         } else {
-            $imageName = null;
+            $imageName = $user->image;
         }
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => 'http://127.0.0.1:8000//' . $imageName,
+            'image' =>  $imageName,
             'rule' => $rule,
         ]);
 
+
+        // if user update successfully
         $status = 1;
         $message = 'user updated successful';
 
         return jsonResponse($status, $message , $user );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    // Post /users/delete/{user}
+    // delete users
     public function destroy($id)
     {
         $user = User::withTrashed()->findOrFail($id);
@@ -169,7 +147,7 @@ class UserController extends Controller
         {
             $user->delete();
             $status = 1;
-            $message="User Deleted successfully";
+            $message="User Trashed successfully";
             return jsonResponse($status, $message , $user);
         }
     }
@@ -183,7 +161,7 @@ class UserController extends Controller
     public function restore($id)
     {
         $user = User::onlyTrashed()->findOrFail($id)->restore();
-
+        $user = User::find($id);
         $status = 1;
         $message="User Restored successfully";
         return jsonResponse($status, $message , $user);
