@@ -1,5 +1,26 @@
 # xlarge API
 ####    Xarge project back-end with Laravel
+-----------------------------------------------
+### How To Use
+#### 1- make sure you have Compuser and Laravel and mysql in you machine
+    •   download and setup xampp 
+    •   download and setup composer
+    •   run apachi and mysql in xampp
+    •   go to http://localhost/phpmyadmin in your browser
+    •   create new database name [xlarge] with utf-8-genral-c
+#### 2- Download Project or Clone It
+#### 3- create .env file from .env.example and set database name [xlarge] 
+#### __  and username [root] , with blank password '' .
+#### 4- in Project folder run this comands
+    •	$ composer install
+    •	$ php artisan key:generate
+    •	$ php artisan migrate
+    •	$ php artisan db:seed
+    •	$ php artisan passport:install
+    •	$ php artisan storage:link
+    •	$ php artisan serve
+#### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
+--------------------------------------------------
 ## Project structure:
 ### Project will contain 4 models
 #### 1)	Post
@@ -8,6 +29,7 @@
     •	Content         => string|required|max:10000
     •	Status          => boolean  ( private or public )
     •	Image           => nullable|image
+    •	views           => number
     •	User_id         => one to many relation with User
     •	Category_id     => one to many relation with Category
 ##### json data
@@ -106,59 +128,26 @@
         "created_at": "2020-05-19T07:58:53.000000Z",
     }
 ```
-##### Like or unlike post method=get http://127.0.0.1:8000/api/like/{post_id} send user_id
-##### check if user like the post method=get | http://127.0.0.1:8000/api/like/{post_id} send user_id
-##### get likes count for one post method=get |http://127.0.0.1:8000/api/likes/{post_id}
 --------------------------------------------------
 ####  Tag can added in future
 --------------------------------------------------
-### How To Use
-#### 1- make sure you have Compuser and Laravel and mysql in you machine
-#### 2- Download Project or Clone It
-#### 3- rename .env.example to .env and create new database and set DBs name & MySQl user & MySQl password in this file
-#### 4- in Project folder run this comands
-    •	$ composer install
-    •	$ php artisan key:generate
-    •	$ php artisan migrate
-    •	$ php artisan db:seed
-    •	$ php artisan storage:link
-    •	$ php artisan serve
-#### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
---------------------------------------------------
-### Json API Services [Get]
+### Json API Services for public data [Get]
                     
 | Action  | Url  | response |
 | ------------- | ------------- | ----------- |
-| get all posts       | http://127.0.0.1:8000/api/posts             | json data |
-| get single post     | http://127.0.0.1:8000/api/posts/{id}        | json data |
-| get all users       | http://127.0.0.1:8000/api/users             | json data |
-| get single user     | http://127.0.0.1:8000/api/users/{id}       | json data 
-| get all categories  | http://127.0.0.1:8000/api/categories        | json data |
-| get single category | http://127.0.0.1:8000/api/categories/{id}   | json data |
-| get all comments    | http://127.0.0.1:8000/api/comments          | json data |
-| get single comment  | http://127.0.0.1:8000/api/comments/{id}     | json data |
-
-### Json API Services action [CRUD]
-                    
-| Action  | Url  | method |
-| ------------- | ------------- | ---------|
-| add post    | http://127.0.0.1:8000/api/posts         | post|  
-| edit post   | http://127.0.0.1:8000/api/posts/{id}    | patch |
-| delete post | http://127.0.0.1:8000/api/users/{id}    | delete |
-| add user    | http://127.0.0.1:8000/api/posts         | post |
-| edit user   | http://127.0.0.1:8000/api/posts/{id}    | patch |
-| delete user | http://127.0.0.1:8000/api/users/{id}    | delete |
-| add category    | http://127.0.0.1:8000/api/posts         | post |  
-| edit category   | http://127.0.0.1:8000/api/posts/{id}    | patch |
-| delete category | http://127.0.0.1:8000/api/users/{id}    | delete |
-| add comment    | http://127.0.0.1:8000/api/posts         | post |
-| edit comment   | http://127.0.0.1:8000/api/posts/{id}    | patch |
-| delete comment | http://127.0.0.1:8000/api/users/{id}    | delete |
+| get all posts       | http://127.0.0.1:8000/api/posts                 | json data |
+| get single post     | http://127.0.0.1:8000/api/posts/show/{id}       | json data |
+| get all users       | http://127.0.0.1:8000/api/users                 | json data |
+| get single user     | http://127.0.0.1:8000/api/users/show/{id}       | json data 
+| get all categories  | http://127.0.0.1:8000/api/categories            | json data |
+| get single category | http://127.0.0.1:8000/api/categories/show/{id}  | json data |
+| get all users    | http://127.0.0.1:8000/api/users                    | json data |
+| get single user  | http://127.0.0.1:8000/api/users/{id}               | json data |
 
 ### Json API action [CRUD] request
 `you need to send request with all required model data at least check model info`
-
-### Json API action [CRUD] response
+`check api Documentation for more information`
+### Json API action response
 ```javascript
 {
     "status": 1,        // Boolean 1 for success 0 for fail
@@ -176,4 +165,9 @@
     }
 }
 ```
+------------------------------------------------------------------------
+## Api Documentation
+`for all information you need to use api system`
+
+    •	go to http://127.0.0.1:8000/api/docs after setup project (soon)
 

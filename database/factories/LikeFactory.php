@@ -8,8 +8,19 @@ use App\Post;
 use Faker\Generator as Faker;
 
 $factory->define(Like::class, function (Faker $faker) {
-    return [
-        'user_id' => User::all()->random()->id,
-        'post_id' => Post::all()->random()->id
-    ];
+    // $user = User::all()->random()->id;
+    // $posts = DB::table('likes')
+    //         ->where('user_id', '!=', $user)
+    //     ->get();
+    // if ($posts->count() > 1){
+    //     $post = $posts->random()->id;
+    // } elseif ($posts->count() == 1){
+    //     $post = $posts->id;
+    // } else {
+    //     $post = 3;
+    // }
+    // return [
+    //     'user_id' => $user,
+    //     'post_id' => $post
+    // ];
 });

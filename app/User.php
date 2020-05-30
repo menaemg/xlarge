@@ -6,12 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
+use App\Notifications\PasswordResetNotification;
 
 class User extends Authenticatable
 {
 
-    use SoftDeletes ;
-    use Notifiable;
+    use HasApiTokens , SoftDeletes , Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'image' , 'rule' ,
+        'name', 'email', 'password', 'image' , 'rule'
     ];
 
     /**
@@ -48,8 +49,12 @@ class User extends Authenticatable
     public function replays() {
         return $this->hasMany(App\User::class);
     }
-
     public function likes() {
         return $this->hasMany(App\User::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token));
     }
 }

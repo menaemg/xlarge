@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\admin;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -42,7 +42,7 @@ class UserController extends Controller
         if ($request->rule){
             $rule = $request->rule;
         } else {
-            $rule = 0;
+            $rule = 1;
         }
 
         // store user image in storage
@@ -89,8 +89,8 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => ['required' ,'email' , \Illuminate\Validation\Rule::unique('users')->ignore($user->email)] ,
-            'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
+            'email' => 'required|email|unique:users'. ($user->id ? ",id,$user->id" : ''),
+            'password' =>'nullable|min:6|confirmed',
             'image' => 'nullable|image',
             'rule' => 'nullable|in:0,1,2,3',
         ]);
@@ -104,7 +104,14 @@ class UserController extends Controller
         if ($request->rule){
             $rule = $request->rule;
         } else {
-            $rule = 0;
+            $rule = 1;
+        }
+
+        // set default value to Auth usr
+        if ($request->password == null){
+            $password = $user->password;
+        } else {
+            $password = Hash::make($request->password);
         }
 
         // store user image in storage
@@ -117,7 +124,7 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $password,
             'image' =>  $imageName,
             'rule' => $rule,
         ]);
@@ -136,34 +143,16 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-        if ($user->trashed())
-        {
-            $user->forceDelete();
-            $status = 1;
-            $message="User Deleted successfully";
-            return jsonResponse($status, $message , $user);
-        }
-        else
+        if (!$user->trashed())
         {
             $user->delete();
             $status = 1;
             $message="User Trashed successfully";
             return jsonResponse($status, $message , $user);
+        } else {
+            $status = 0;
+            $message="you can't delete this user";
+            return jsonResponse($status, $message , $user);
         }
-    }
-
-    public function trashed()
-    {
-        $users = User::onlyTrashed()->get();
-        return response()->json($users);
-    }
-
-    public function restore($id)
-    {
-        $user = User::onlyTrashed()->findOrFail($id)->restore();
-        $user = User::find($id);
-        $status = 1;
-        $message="User Restored successfully";
-        return jsonResponse($status, $message , $user);
     }
 }

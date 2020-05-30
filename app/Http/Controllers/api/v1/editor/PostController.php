@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\editor;
 
 use App\Post;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class PostController extends Controller
             'content' => 'string|required|max:10000',
             'status' => 'nullable|boolean',
             'image' => 'nullable|image',
-            'user_id' => 'exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
@@ -44,11 +44,18 @@ class PostController extends Controller
             $imageName = 'http://127.0.0.1:8000///storage/images/xlarge.png';
         };
 
-        // set post status to public
+        // set default post status to public
         if ($request->status == null){
             $status = 1;
         } else {
             $status = $request->status;
+        };
+
+        // set default user id to auth user
+        if ($request->user_id == null){
+            $user_id = Auth('api')->user()->id;
+        } else {
+            $user_id = $request->user_id;
         };
 
         $post = Post::create([
@@ -56,7 +63,7 @@ class PostController extends Controller
             'content' => $request->content,
             'status' => $status,
             'image' =>  $imageName,
-            'user_id' => $request->user_id,
+            'user_id' => $user_id,
             'category_id' => $request->category_id,
         ]);
 
@@ -71,30 +78,25 @@ class PostController extends Controller
 
     // Get /posts/show/{post}
     // show post info
-    public function show(Post $post)
+    public function show($post)
     {
-        // add 1 to post views counter
-        $views = $post->views + 1;
-
-        // update post views
-        $post->update([
-            'views' => $views
-        ]);
-
+        $post = Post::findOrFail($post);
         return response()->json($post);
     }
 
 
     // Post /posts/edit/{post}
     // edit the post
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $post)
     {
+        $post = Post::findOrFail($post);
+
         $validator = Validator::make($request->all(), [
             'title' => 'string|required|max:255',
             'content' => 'string|required|max:10000',
             'status' => 'nullable|boolean',
             'image' => 'nullable|image',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
@@ -119,12 +121,19 @@ class PostController extends Controller
             $status = $request->status;
         };
 
+        // set default user id to auth user
+        if ($request->user_id == null){
+            $user_id = Auth('api')->user()->id;
+        } else {
+            $user_id = $request->user_id;
+        };
+
         $post->update([
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
             'image' => $imageName,
-            'user_id' => $request->user_id,
+            'user_id' => $user_id,
             'category_id' => $request->category_id,
         ]);
 
@@ -141,33 +150,17 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::withTrashed()->findOrFail($id) ;
-        if ($post->trashed())
-        {
-            $post->forceDelete();
-            $status = 1;
-            $message="Post Deleted successfully";
-            return jsonResponse($status, $message , $post);
-        }
-        else
+        if (!$post->trashed())
         {
             $post->delete();
             $status = 1;
-            $message="Post Trashed successfully";
+            $message="post Trashed successfully";
+            return jsonResponse($status, $message , $post);
+        } else {
+            $status = 0;
+            $message="you can't delete this post";
             return jsonResponse($status, $message , $post);
         }
     }
 
-    public function trashed()
-    {
-        $posts = Post::onlyTrashed()->get();
-        return response()->json($posts);
-    }
-
-    public function restore($id)
-    {
-        $post = Post::onlyTrashed()->findOrFail($id)->restore();
-        $status = 1;
-        $message="Post Restored successfully";
-        return jsonResponse($status, $message , $post);
-    }
 }

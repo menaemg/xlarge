@@ -17,7 +17,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'title' => $faker->sentence(3),
         'content' => $faker->Text(500),
         'user_id' => User::all()->random()->id,
-        'user_id' => Category::all()->random()->id,
+        'category_id' => Category::all()->random()->id,
         'image' =>  'http://127.0.0.1:8000///storage/images/' . $imageName
     ];
 });

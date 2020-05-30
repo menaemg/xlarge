@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\App\Http\Middleware\asAdmin;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -73,8 +74,34 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/api/public_data.php'));
+
+        Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+            ->group(base_path('routes/api/auth.php'));
+
+            Route::prefix('api/user')
+            ->middleware('auth:api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/user.php'));
+
+            Route::prefix('api/editor')
+            ->middleware('auth:api','asEditor')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/editor.php'));
+
+        Route::prefix('api/admin')
+            ->middleware('auth:api','asAdmin')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/admin.php'));
+
+        Route::prefix('api/trash')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/trash.php'));
+
     }
 }

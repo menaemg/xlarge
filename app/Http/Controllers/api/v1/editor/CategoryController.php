@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\editor;
 
 use App\Category;
 use Illuminate\Http\Request;
@@ -14,7 +14,36 @@ class CategoryController extends Controller
     // show all categories data
     public function index()
     {
-        return response()->json(Category::all());
+        $categories = Category::where('subfrom' , null)->get();
+        $categories = $categories->toArray();
+
+        $categoriesData = [];
+
+        foreach ($categories as $category){
+
+            $subcats = Category::where('subfrom' , $category['id'])->get();
+            $subcats = $subcats->toArray();
+            $subcatData = [];
+
+            foreach ($subcats as $subcat){
+                $subcatData[] = [
+                    'id' => $subcat['id'],
+                    'name' => $subcat['name'],
+                    'created_at' =>  date('Y-m-d H:i' , strtotime($subcat['created_at'])),
+                ];
+            }
+            if ($subcatData == []){
+                $subcatData = null;
+            }
+            $categoriesData[] = [
+                'id' => $category['id'],
+                'name' => $category['name'],
+                'created_at' =>  date('Y-m-d H:i' , strtotime($category['created_at'])),
+                'sub_categories' => $subcatData,
+
+            ];
+        }
+        return response()->json($categoriesData);
     }
 
     // Post /categories/create
@@ -36,7 +65,8 @@ class CategoryController extends Controller
             // check if parent is sub from
             $parentCategory = Category::find($request->subfrom);
             if (!$parentCategory->subfrom == null){
-                return jsonResponse(0, ['subfrom' => "The selected subfrom is invalid."] , $request->all() );
+                $status = 0;
+                return jsonResponse($status , ['subfrom' => "The selected subfrom is invalid."] , $request->all() );
             }
         }
 
@@ -53,16 +83,23 @@ class CategoryController extends Controller
 
     // Get /categories/show/{categories}
     // show category data
-    public function show(Category $category)
+    public function show($category)
     {
+        $category = Category::findOrFail($category);
+
+        $subCategories = Category::where('subfrom' , $category->id)->get();
+
+        $category->sub_categories = $subCategories;
         return response()->json($category);
     }
 
 
     // Post /categories/update/{categories}
     // update onr category
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$category)
     {
+        $category = Category::findOrFail($category);
+
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string' , 'max:255', \Illuminate\Validation\Rule::unique('categories')->ignore($category) ],
             'description' => 'nullable|string|max:1000',
@@ -78,21 +115,23 @@ class CategoryController extends Controller
             // check if parent is sub from another category
             $parentCategory = Category::find($request->subfrom);
             if (!$parentCategory->subfrom == null){
-                return jsonResponse(0, ['subfrom' => "The selected parent is invalid."] , $request->all() );
+                $status = 0;
+                return jsonResponse($status, ['subfrom' => "The selected parent is invalid."] , $request->all() );
             }
             // check if subform is the parent
             if ($request->subfrom == $category->id ){
-                return jsonResponse(0, ['subfrom' => "parent can't be sub category in same time."] , $request->all() );
+                $status = 0;
+                return jsonResponse($status, ['subfrom' => "parent can't be sub category in same time."] , $request->all() );
             }
             // check if this category has sub categories
             $subCategories = Category::where('subfrom' , $category->id)->count();
             if ($subCategories){
-                return jsonResponse(0, ['subfrom' => "Delete or remove sub categories first."] , $request->all() );
+                $status = 0;
+                return jsonResponse($status , ['subfrom' => "Delete or remove sub categories first."] , $request->all() );
             }
         }
 
         $category->update($request->all());
-
 
         // if category updated successfully
         $status = 1;
@@ -106,40 +145,25 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category =Category::withTrashed()->findOrFail($id);
-        if ($category->trashed())
-        {
-            $category->forceDelete();
-            $status = 1;
-            $message="Category Deleted successfully";
-            return jsonResponse($status, $message , $category);
-        }
-        else
+        if (!$category->trashed())
         {
             // check if this category has sub categories
             $subCategories = Category::where('subfrom' , $category->id)->count();
             if ($subCategories){
-                return jsonResponse(0, ['subfrom' => "Delete or remove sub categories first."] , $category );
+                $status = 0;
+                return jsonResponse($status, ['subfrom' => "Delete or remove sub categories first."] , $category );
             }
 
             $category->delete();
             $status = 1;
-            $message="Category Trashed successfully";
+            $message="category Trashed successfully";
             return jsonResponse($status, $message , $category);
         }
-    }
-
-    // Super Admin Functions
-    public function trashed()
-    {
-        $category = Category::onlyTrashed()->get() ;
-        return response()->json($category) ;
-    }
-
-    public function restore($id)
-    {
-        $category = Category::onlyTrashed()->findOrFail($id)->restore() ;
-        $status = 1;
-        $message="Category Restored successfully";
-        return jsonResponse($status, $message , $category);
+        else
+        {
+            $status = 0;
+            $message="you can't delete this category";
+            return jsonResponse($status, $message , $category);
+        }
     }
 }

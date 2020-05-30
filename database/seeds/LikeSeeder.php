@@ -11,6 +11,6 @@ class LikeSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Like::class, 500)->create();
+        //factory(App\Like::class, 500)->create();
     }
 }

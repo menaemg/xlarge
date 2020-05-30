@@ -11,6 +11,6 @@ class ReplaySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Replay::class, 50)->create();
+        factory(App\Replay::class, 1000)->create();
     }
 }
