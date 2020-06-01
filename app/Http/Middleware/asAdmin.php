@@ -21,7 +21,7 @@ class asAdmin
             return $next($request);
         } else {
             $status = 0;
-            $message = 'login as a admin first';
+            $message = 'login as a admin frist';
             return jsonResponse($status, $message, Auth::user());
         }
     }

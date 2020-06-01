@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
                 'rule'      => 2
             ],
             [
-                'name'      => 'just user',
+                'name'      => 'super admin',
                 'email'     => 'admin@test.com',
                 'password'  => Hash::make('password'),
                 'image'     => 'http://127.0.0.1:8000///storage/images/admin_avatar.png',

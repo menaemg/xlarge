@@ -20,14 +20,11 @@ class ProfileController extends Controller
 
     public function update(Request $request){
         $user = Auth('api')->user();
-        // if ($user->email == $request->email){
-        //     dd('yes');
-        // }
-        // dd($user->email , $request->email);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' =>  'required|email|unique:users'. ($user->id ? ",id,$user->id" : ''),
-            'password' =>'required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 'confirmed',
+            'password' =>'required|min:6|confirmed',
             'image' => 'nullable|image',
         ]);
 
@@ -40,7 +37,7 @@ class ProfileController extends Controller
         // store user image in storage
         if ($request->image){
             $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
-        // use old image
+        // use old image if request is null
         } else {
             $imageName = $user->image;
         }

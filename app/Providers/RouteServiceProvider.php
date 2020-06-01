@@ -83,12 +83,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api/auth.php'));
 
-            Route::prefix('api/user')
+        Route::prefix('api/user')
             ->middleware('auth:api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/user.php'));
 
-            Route::prefix('api/editor')
+        Route::prefix('api/editor')
             ->middleware('auth:api','asEditor')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/editor.php'));
@@ -99,7 +99,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/api/admin.php'));
 
         Route::prefix('api/trash')
-            ->middleware('api')
+            ->middleware('auth:api','asAdmin')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/trash.php'));
 

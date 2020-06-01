@@ -21,7 +21,7 @@ class asEditor
             return $next($request);
         } else {
             $status = 0;
-            $message = 'login as a Editor first';
+            $message = 'login as a Editor frist';
             return jsonResponse($status, $message, Auth::user());
         }
     }

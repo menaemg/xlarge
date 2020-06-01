@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\admin;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use Auth;
 use Hash;
 use Storage;
 
@@ -145,14 +146,27 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
         if (!$user->trashed())
         {
+
+            if (Auth::user()->id == $id)
+            {
+
+                $status = 0;
+                $message="you can't delete your profile from here";
+                return jsonResponse($status, $message , $user);
+
+            }
+
             $user->delete();
             $status = 1;
             $message="User Trashed successfully";
             return jsonResponse($status, $message , $user);
+
         } else {
+
             $status = 0;
             $message="you can't delete this user";
             return jsonResponse($status, $message , $user);
+
         }
     }
 }
