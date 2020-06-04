@@ -80,13 +80,20 @@ class ReplayController extends Controller
 
         $validator = Validator::make($request->all(), [
             'content' => 'required|max:255',
-            'comment_id' => 'required|exists:comments,id',
+            'comment_id' => 'nullable|exists:comments,id',
             'user_id' => 'nullable|exists:users,id',
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
+        }
+
+        // set default value to cooment id
+        if ($request->comment_id == null){
+            $comment_id = $replay->comment_id;
+        } else {
+            $comment_id = $request->comment_id;
         }
 
         // set default value to Auth usr
@@ -98,7 +105,7 @@ class ReplayController extends Controller
 
         $replay->update([
             'content' =>$request->content,
-            'comment_id' =>$request->comment_id,
+            'comment_id' =>$comment_id,
             'user_id' =>$user_id,
         ]);
 

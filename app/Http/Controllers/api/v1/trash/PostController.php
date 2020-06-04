@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\trash;
 use App\Post;
 use App\User;
 use App\Category;
+use Storage;
 use Illuminate\Http\Request;
 use Validator;
 

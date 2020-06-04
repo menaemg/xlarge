@@ -53,13 +53,14 @@ class LikeController extends Controller
 
             ]);
             $status = 1;
-            return jsonResponse($status , 'like', $like);
+            return jsonResponse($status , 'like');
 
         // unlike if user like this post
         } else {
             $status = 1;
-            $like = Like::find($likes->first()->id)->delete();
-            return jsonResponse($status , 'unlike', $likes);
+            $like = Like::find($likes->first()->id);
+            $unlike = Like::find($likes->first()->id)->delete();
+            return jsonResponse($status , 'unlike');
         }
     }
 
@@ -78,10 +79,10 @@ class LikeController extends Controller
 
         if ($likes->count()){
             $status = 1;
-            return jsonResponse($status , 'user like this post' , 1);
+            return jsonResponse($status , 'like' , true);
         } else {
-            $status = 0;
-            return jsonResponse($status , 'user unlike this post' , 0);
+            $status = 1;
+            return jsonResponse($status , 'unlike' , false);
         };
     }
 }

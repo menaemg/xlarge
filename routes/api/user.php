@@ -17,9 +17,9 @@ Route::get('/comments' , 'Api\V1\user\CommentController@index');
 // create comment
 Route::post('/comments/create' , 'Api\V1\user\CommentController@store');
 // edit comment
-Route::post('/comments/edit/{comment}' , 'Api\V1\user\CommentController@update');
+Route::put('/comments/edit/{comment}' , 'Api\V1\user\CommentController@update');
 // delete comment
-Route::post('/comments/delete/{comment}' , 'Api\V1\user\CommentController@destroy');
+Route::delete('/comments/delete/{comment}' , 'Api\V1\user\CommentController@destroy');
 
 
 // replies
@@ -28,9 +28,9 @@ Route::get('/replies' , 'Api\V1\user\ReplayController@index');
 // create comment
 Route::post('/replies/create' , 'Api\V1\user\ReplayController@store');
 // edit comment
-Route::post('/replies/edit/{replay}' , 'Api\V1\user\ReplayController@update');
+Route::put('/replies/edit/{replay}' , 'Api\V1\user\ReplayController@update');
 // delete comment
-Route::post('/replies/delete/{replay}' , 'Api\V1\user\ReplayController@destroy');
+Route::delete('/replies/delete/{replay}' , 'Api\V1\user\ReplayController@destroy');
 
 
 // Profile

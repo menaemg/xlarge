@@ -17,7 +17,7 @@ class ReplayController extends Controller
         {
             $replay->forceDelete();
             $status = 1;
-            $message="User Deleted successfully";
+            $message="Replay Deleted successfully";
             return jsonResponse($status, $message , $replay);
         }
     }

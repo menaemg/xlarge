@@ -16,7 +16,7 @@ class CategoryController extends Controller
         {
             $category->forceDelete();
             $status = 1;
-            $message="User Deleted successfully";
+            $message="Category Deleted successfully";
             return jsonResponse($status, $message , $category);
         }
     }

@@ -1,10 +1,11 @@
-# xlarge API
-####    Xarge project back-end with Laravel
+# XLarge API
+#### XLarge project back-end with Laravel
+
 -----------------------------------------------
 ### How To Use
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
-    •   download and setup xampp 
-    •   download and setup composer
+    •   download and setup xampp [xampp](https://www.apachefriends.org/download.html)
+    •   download and setup composer [xampp](https://getcomposer.org/download/)
     •   run apachi and mysql in xampp
     •   go to http://localhost/phpmyadmin in your browser
     •   create new database name [xlarge] with utf-8-genral-c
@@ -19,10 +20,16 @@
     •	$ php artisan passport:install
     •	$ php artisan storage:link
     •	$ php artisan serve
-#### 5- go to http://127.0.0.1:8000 in your browser you will see wellcome screen
+#### 5- go to http://127.0.0.1:8000 in your browser you will see homepage!
 --------------------------------------------------
+## Api Documentation
+`for all information you need to use api system`
+
+    •	go to http://127.0.0.1:8000/api/docs after setup project for Api Documentation
+    •	get postman json collection [postman.json](public/postman.json)
+------------------------------------------------------------------------
 ## Project structure:
-### Project will contain 4 models
+### Project will contain 6 models
 #### 1)	Post
     •	Id
     •	Title           => string|required|max:255
@@ -165,9 +172,4 @@
     }
 }
 ```
-------------------------------------------------------------------------
-## Api Documentation
-`for all information you need to use api system`
-
-    •	go to http://127.0.0.1:8000/api/docs after setup project (soon)
 

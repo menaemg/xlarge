@@ -2,19 +2,25 @@
 // Response function for api with json
 
 function jsonResponse($status , $message , $data = null , $token = null){
+
+    if ($data === null) {
+        $response = [
+            'status'    => $status ,
+            'message'   => $message,
+        ];
+    } else {
+        $response = [
+            'status'    => $status ,
+            'message'   => $message,
+            'data'      => $data
+        ];
+    }
     if ($token) {
         $response = [
             'status'    => $status ,
             'message'   => $message,
             'data'      => $data ,
             'access_token'     => $token
-        ];
-    }
-    else {
-        $response = [
-            'status'    => $status ,
-            'message'   => $message,
-            'data'      => $data
         ];
     }
     if ($status == 0){

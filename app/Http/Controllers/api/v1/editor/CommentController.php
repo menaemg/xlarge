@@ -99,13 +99,20 @@ class CommentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'content' => 'required|max:255',
-            'post_id' => 'required|exists:posts,id',
+            'post_id' => 'nullable|exists:posts,id',
             'user_id' => 'nullable|exists:users,id',
         ]);
 
         if ($validator->fails()) {
             $status = 0;
             return jsonResponse($status, $validator->messages() , $request->all());
+        }
+
+        // set default value to post id
+        if ($request->post_id == null){
+            $post_id = $comment->post_id;
+        } else {
+            $post_id = $request->post_id;
         }
 
         // set default value to Auth usr
@@ -116,7 +123,7 @@ class CommentController extends Controller
         }
         $comment->update( [
             'content' =>$request->content,
-            'post_id' =>$request->post_id,
+            'post_id' =>$post_id,
             'user_id' =>$user_id,
         ]);
 

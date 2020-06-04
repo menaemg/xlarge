@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Laravel XLarge Api</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -61,12 +61,20 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .m-t-md {
+                margin-top: 50px;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+            <div class="top-right links">
+                <a href="#">XLarge Api V1.0.0</a>
+            </div>
             @if (Route::has('login'))
                 <div class="top-right links">
+
+
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -81,16 +89,23 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Xlarge Project
+                    Xlarge Laravel API
                 </div>
 
                 <div class="links">
-                    <a href="{{URL::to('/api/posts')}}">Posts</a>
-                    <a href="{{URL::to('/api/users')}}">Users</a>
-                    <a href="{{URL::to('/api/categories')}}">Categories</a>
-                    <a href="{{URL::to('/api/comments')}}">Comments</a>
+                    <a href="{{URL::to('/api/posts')}}" target="_blank">Public Posts</a>
+                    <a href="{{URL::to('/api/users')}}" target="_blank">Public Users</a>
+                    <a href="{{URL::to('/api/categories')}}" target="_blank">Public Categories</a>
+                </div>
+                <div class="links m-t-md">
+                    <a href="https://github.com/menaemg/xlarge" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i>GitHub</a>
+                    <a href="{{URL::to('/api/docs')}}" target="_blank"><i class="fa fa-book fa-2x" aria-hidden="true"></i>Docs</a>
+                    <a href="{{URL::to('postman.json')}}" target="_blank">postman collection</a>
                 </div>
             </div>
         </div>
+
+
+        <script src="https://kit.fontawesome.com/edf00b1fcf.js" crossorigin="anonymous"></script>
     </body>
 </html>

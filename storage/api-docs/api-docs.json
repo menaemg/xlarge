@@ -1,0 +1,2304 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Xlarge Api",
+        "description": "xlarge laravel api Documentation",
+        "contact": {
+            "name": "github",
+            "url": "https://github.com/menaemg/xlarge"
+        },
+        "version": "1.0.0"
+    },
+    "host": "127.0.0.1:8000",
+    "basePath": "/api",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "login and get access token",
+                "description": "login and get access token",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for email",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "register new user",
+                "description": "register new user",
+                "operationId": "register",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "full name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for email",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "password confirmation for email",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "get": {
+                "tags": [
+                    "public posts"
+                ],
+                "summary": "get public posts",
+                "description": "get public posts",
+                "operationId": "posts",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/posts/show/{id}": {
+            "get": {
+                "tags": [
+                    "public posts"
+                ],
+                "summary": "show single post",
+                "description": "show single post",
+                "operationId": "post",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "public categories"
+                ],
+                "summary": "get public categories",
+                "description": "get public categories",
+                "operationId": "categories",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/categories/show/{id}": {
+            "get": {
+                "tags": [
+                    "public categories"
+                ],
+                "summary": "show single category",
+                "description": "show single category",
+                "operationId": "post",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "public users"
+                ],
+                "summary": "get public users",
+                "description": "get public users",
+                "operationId": "users",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/users/show/{id}": {
+            "get": {
+                "tags": [
+                    "public users"
+                ],
+                "summary": "show single user",
+                "description": "show single user",
+                "operationId": "user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/user/profile/me": {
+            "get": {
+                "tags": [
+                    "user profile"
+                ],
+                "summary": "get user profile",
+                "description": "get public users",
+                "operationId": "profile.me",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/profile/edit": {
+            "post": {
+                "tags": [
+                    "user profile"
+                ],
+                "summary": "edit user profile",
+                "description": "edit user profile",
+                "operationId": "profile.edit",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "full name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for email",
+                        "required": false,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "password confirmation for email",
+                        "required": false,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "user image",
+                        "required": false,
+                        "type": "file",
+                        "format": "image"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/logout": {
+            "post": {
+                "tags": [
+                    "user profile"
+                ],
+                "summary": "logout from your account",
+                "description": "logout from your account",
+                "operationId": "profile.logout",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/like/add/{id}": {
+            "post": {
+                "tags": [
+                    "user like"
+                ],
+                "summary": "like or unlike post",
+                "description": "like or unlike post",
+                "operationId": "user.like",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/like/posts": {
+            "get": {
+                "tags": [
+                    "user like"
+                ],
+                "summary": "get user likes for all posts",
+                "description": "get user likes for all posts",
+                "operationId": "user.likes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/like/status/{id}": {
+            "get": {
+                "tags": [
+                    "user like"
+                ],
+                "summary": "check if user like this post",
+                "description": "check if user like this post",
+                "operationId": "user.like.status",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/comments": {
+            "get": {
+                "tags": [
+                    "user comments"
+                ],
+                "summary": "get all user comments",
+                "description": "get all user comments",
+                "operationId": "user.comments",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/comments/create": {
+            "post": {
+                "tags": [
+                    "user comments"
+                ],
+                "summary": "add new comment",
+                "description": "get all user comments",
+                "operationId": "user.comments.create",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "formData",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "comment content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/comments/edit/{id}": {
+            "put": {
+                "tags": [
+                    "user comments"
+                ],
+                "summary": "edit comment",
+                "description": "edit comment",
+                "operationId": "user.comments.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "comment content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/comments/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "user comments"
+                ],
+                "summary": "delete comment",
+                "description": "delete comment",
+                "operationId": "user.comments.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/replies": {
+            "get": {
+                "tags": [
+                    "user replies"
+                ],
+                "summary": "get all user replies",
+                "description": "get all user replies",
+                "operationId": "user.replies",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/replies/create": {
+            "post": {
+                "tags": [
+                    "user replies"
+                ],
+                "summary": "add new replies",
+                "description": "get all user replies",
+                "operationId": "user.replies.create",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "formData",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "replay content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/replies/edit/{id}": {
+            "put": {
+                "tags": [
+                    "user replies"
+                ],
+                "summary": "edit replies",
+                "description": "edit replies",
+                "operationId": "user.replies.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "replay content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/replies/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "user replies"
+                ],
+                "summary": "delete replies",
+                "description": "delete replies",
+                "operationId": "user.replies.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/posts": {
+            "get": {
+                "tags": [
+                    "editor posts"
+                ],
+                "summary": "get all posts",
+                "description": "get all posts",
+                "operationId": "editor.posts",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/posts/show/{id}": {
+            "get": {
+                "tags": [
+                    "editor posts"
+                ],
+                "summary": "get one post",
+                "description": "et one post",
+                "operationId": "editor.posts.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/posts/create": {
+            "post": {
+                "tags": [
+                    "editor posts"
+                ],
+                "summary": "create new post",
+                "description": "create new post",
+                "operationId": "user.replies.create",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "post title",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "post content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "post image",
+                        "required": false,
+                        "type": "file",
+                        "format": "image"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id for this post",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "private or public",
+                        "required": false,
+                        "type": "string",
+                        "format": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/posts/edit/{id}": {
+            "put": {
+                "tags": [
+                    "editor posts"
+                ],
+                "summary": "edit post",
+                "description": "edit post",
+                "operationId": "editor.post.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "posts id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "post title",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "post content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "post image",
+                        "required": false,
+                        "type": "file",
+                        "format": "image"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id for this post",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "private or public",
+                        "required": false,
+                        "type": "string",
+                        "format": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/posts/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "editor posts"
+                ],
+                "summary": "delete post",
+                "description": "delete post",
+                "operationId": "user.posts.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/categories": {
+            "get": {
+                "tags": [
+                    "editor categories"
+                ],
+                "summary": "get all categories",
+                "description": "get all categories",
+                "operationId": "editor.categories",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/categories/show/{id}": {
+            "get": {
+                "tags": [
+                    "editor categories"
+                ],
+                "summary": "get one category",
+                "description": "et one category",
+                "operationId": "editor.categories.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/categories/create": {
+            "post": {
+                "tags": [
+                    "editor categories"
+                ],
+                "summary": "create new category",
+                "description": "create new category",
+                "operationId": "user.categories.create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "category name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "category description",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "subfrom",
+                        "in": "formData",
+                        "description": "parent category id for this category",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/categories/edit/{id}": {
+            "put": {
+                "tags": [
+                    "editor categories"
+                ],
+                "summary": "edit categories",
+                "description": "edit category",
+                "operationId": "editor.categories.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "category name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "category description",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "subfrom",
+                        "in": "formData",
+                        "description": "parent category id for this category",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/categories/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "editor categories"
+                ],
+                "summary": "delete category",
+                "description": "delete categories",
+                "operationId": "user.categories.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/comments": {
+            "get": {
+                "tags": [
+                    "editor comments"
+                ],
+                "summary": "get all comments",
+                "description": "get all comments",
+                "operationId": "editor.comments",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/comments/show/{id}": {
+            "get": {
+                "tags": [
+                    "editor comments"
+                ],
+                "summary": "get one comment",
+                "description": "et one comment",
+                "operationId": "editor.comments.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/comments/create": {
+            "post": {
+                "tags": [
+                    "editor comments"
+                ],
+                "summary": "create new comment",
+                "description": "create new comment",
+                "operationId": "editor.comments.create",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "formData",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "comment content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/comments/edit/{id}": {
+            "put": {
+                "tags": [
+                    "editor comments"
+                ],
+                "summary": "edit comment",
+                "description": "edit comment",
+                "operationId": "editor.comments.edit",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "comment content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "post_id",
+                        "in": "formData",
+                        "description": "post id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/comments/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "editor comments"
+                ],
+                "summary": "delete comment",
+                "description": "delete comment",
+                "operationId": "editor.comments.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/replies": {
+            "get": {
+                "tags": [
+                    "editor replies"
+                ],
+                "summary": "get all replies",
+                "description": "get all replies",
+                "operationId": "editor.replies",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/replies/show/{id}": {
+            "get": {
+                "tags": [
+                    "editor replies"
+                ],
+                "summary": "get one replay",
+                "description": "et one replay",
+                "operationId": "editor.replies.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/replies/create": {
+            "post": {
+                "tags": [
+                    "editor replies"
+                ],
+                "summary": "create new replay",
+                "description": "create new replay",
+                "operationId": "editor.replies.create",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "replay content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "comment_id",
+                        "in": "formData",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/replies/edit/{id}": {
+            "put": {
+                "tags": [
+                    "editor replies"
+                ],
+                "summary": "edit replay",
+                "description": "edit replay",
+                "operationId": "editor.replies.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "replay content",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "comment_id",
+                        "in": "formData",
+                        "description": "comment id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user id",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/editor/replies/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "editor replies"
+                ],
+                "summary": "delete replay",
+                "description": "delete replay",
+                "operationId": "editor.replies.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/users": {
+            "get": {
+                "tags": [
+                    "admin users"
+                ],
+                "summary": "get all users",
+                "description": "get all users",
+                "operationId": "admin.users",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/users/show/{id}": {
+            "get": {
+                "tags": [
+                    "admin users"
+                ],
+                "summary": "get one user",
+                "description": "et one user",
+                "operationId": "admin.users.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/users/create": {
+            "post": {
+                "tags": [
+                    "admin users"
+                ],
+                "summary": "create new user",
+                "description": "create new user",
+                "operationId": "admin.users.create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "full name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for email",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "password confirmation for email",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "user image",
+                        "required": false,
+                        "type": "file",
+                        "format": "image"
+                    },
+                    {
+                        "name": "rule",
+                        "in": "formData",
+                        "description": "user rule in (1 , 2, 3) 1 user 2 editor 3 admin",
+                        "required": false,
+                        "type": "string",
+                        "format": "image"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/users/edit/{id}": {
+            "put": {
+                "tags": [
+                    "admin users"
+                ],
+                "summary": "edit user",
+                "description": "edit new user",
+                "operationId": "admin.users.edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "full name",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for email",
+                        "required": false,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "password confirmation for email",
+                        "required": false,
+                        "type": "string",
+                        "format": "password"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "user image",
+                        "required": false,
+                        "type": "file",
+                        "format": "image"
+                    },
+                    {
+                        "name": "rule",
+                        "in": "formData",
+                        "description": "user rule in (1 , 2, 3) 1 user 2 editor 3 admin",
+                        "required": false,
+                        "type": "string",
+                        "format": "image"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/users/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "admin users"
+                ],
+                "summary": "delete user",
+                "description": "delete user",
+                "operationId": "admin.users.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/users": {
+            "get": {
+                "tags": [
+                    "users trash"
+                ],
+                "summary": "get users trash",
+                "description": "get users trash",
+                "operationId": "users.trash",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/users/restore/{id}": {
+            "post": {
+                "tags": [
+                    "users trash"
+                ],
+                "summary": "restore user from trash",
+                "description": "restore user from trash",
+                "operationId": "users.trash.restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/users/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "users trash"
+                ],
+                "summary": "delete user from trash",
+                "description": "delete user from trash",
+                "operationId": "users.trash.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/posts": {
+            "get": {
+                "tags": [
+                    "posts trash"
+                ],
+                "summary": "get posts trash",
+                "description": "get posts trash",
+                "operationId": "posts.trash",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/posts/restore/{id}": {
+            "post": {
+                "tags": [
+                    "posts trash"
+                ],
+                "summary": "restore post from trash",
+                "description": "restore post from trash",
+                "operationId": "post.trash.restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/posts/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "posts trash"
+                ],
+                "summary": "delete post from trash",
+                "description": "delete post from trash",
+                "operationId": "posts.trash.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "post id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/categories": {
+            "get": {
+                "tags": [
+                    "categories trash"
+                ],
+                "summary": "get categories trash",
+                "description": "get categories trash",
+                "operationId": "categories.trash",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/categories/restore/{id}": {
+            "post": {
+                "tags": [
+                    "categories trash"
+                ],
+                "summary": "restore category from trash",
+                "description": "restore category from trash",
+                "operationId": "categories.trash.restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/categories/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "categories trash"
+                ],
+                "summary": "delete category from trash",
+                "description": "delete category from trash",
+                "operationId": "categories.trash.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/comments": {
+            "get": {
+                "tags": [
+                    "comments trash"
+                ],
+                "summary": "get comments trash",
+                "description": "get comments trash",
+                "operationId": "comments.trash",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/comments/restore/{id}": {
+            "post": {
+                "tags": [
+                    "comments trash"
+                ],
+                "summary": "restore comment from trash",
+                "description": "restore comment from trash",
+                "operationId": "comments.trash.restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/comments/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "comments trash"
+                ],
+                "summary": "delete comment from trash",
+                "description": "delete comment from trash",
+                "operationId": "comments.trash.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comment id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/replies": {
+            "get": {
+                "tags": [
+                    "replies trash"
+                ],
+                "summary": "get replies trash",
+                "description": "get replies trash",
+                "operationId": "replies.trash",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/replies/restore/{id}": {
+            "post": {
+                "tags": [
+                    "replies trash"
+                ],
+                "summary": "restore replay from trash",
+                "description": "restore replay from trash",
+                "operationId": "replies.trash.restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/trash/replies/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "replies trash"
+                ],
+                "summary": "delete replay from trash",
+                "description": "delete replay from trash",
+                "operationId": "replies.trash.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "replay id",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {},
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "login and register"
+        },
+        {
+            "name": "public posts",
+            "description": "get public posts"
+        },
+        {
+            "name": "public categories",
+            "description": "get public categories"
+        },
+        {
+            "name": "public users",
+            "description": "get public users"
+        },
+        {
+            "name": "user profile",
+            "description": "show , edit and logout user"
+        },
+        {
+            "name": "user like",
+            "description": "like , unlike and get likes for posts"
+        },
+        {
+            "name": "user comments",
+            "description": "get , add , edit and delete user comments"
+        },
+        {
+            "name": "user replies",
+            "description": "get , add , edit and delete user replies"
+        },
+        {
+            "name": "editor posts",
+            "description": "get public posts"
+        },
+        {
+            "name": "editor categories",
+            "description": "get public categories"
+        },
+        {
+            "name": "editor comments",
+            "description": "get public users"
+        },
+        {
+            "name": "editor replies",
+            "description": "get public users"
+        },
+        {
+            "name": "admin users",
+            "description": "get public users"
+        },
+        {
+            "name": "users trash",
+            "description": "get , restore or delete trash users"
+        },
+        {
+            "name": "posts trash",
+            "description": "get , restore or delete trash posts"
+        },
+        {
+            "name": "categories trash",
+            "description": "get , restore or delete trash categories"
+        },
+        {
+            "name": "comments trash",
+            "description": "get , restore or delete trash comments"
+        },
+        {
+            "name": "replies trash",
+            "description": "get , restore or delete trash replies"
+        }
+    ]
+}

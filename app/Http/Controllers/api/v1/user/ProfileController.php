@@ -24,7 +24,7 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' =>  'required|email|unique:users'. ($user->id ? ",id,$user->id" : ''),
-            'password' =>'required|min:6|confirmed',
+            'password' =>'nullable|min:6|confirmed',
             'image' => 'nullable|image',
         ]);
 
@@ -33,6 +33,13 @@ class ProfileController extends Controller
             return jsonResponse($status, $validator->messages() , $request->all());
         }
 
+        // store user image in storage
+        if ($request->password == null){
+            $password = $user->password;
+        // use old image if request is null
+        } else {
+            $password = Hash::make($request->password);
+        }
 
         // store user image in storage
         if ($request->image){
@@ -44,7 +51,7 @@ class ProfileController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $password,
             'image' =>  $imageName,
         ]);
 

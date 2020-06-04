@@ -20,11 +20,9 @@ class AuthController extends Controller
             'password' => 'required|min:6|string|confirmed'
         ]);
 
-        //dd($validator->fails());
-
         if ($validator->fails()) {
             $status = 0;
-            return jsonResponse($status, $validator->messages() , $request->all());
+            return jsonResponse($status, $validator->messages() , $request->email);
         };
 
         $url = 'https://api.adorable.io/avatars/240/'. rand(1,1000);
@@ -57,12 +55,12 @@ class AuthController extends Controller
 
         if (!$login) {
             $status = 0;
-            return jsonResponse($status, $validator->messages() , $request->all());
+            return jsonResponse($status, $validator->messages() , $request->email);
         };
 
         if ( !auth()->attempt($login)){
             $status = 0;
-            return jsonResponse($status , 'invalid email or password' , $request->all());
+            return jsonResponse($status , 'invalid email or password' , $request->email);
         }
 
         $status = 1;
