@@ -1,14 +1,14 @@
-# XLarge API
+# XLarge Laravel API
 #### XLarge project back-end with Laravel
 
 -----------------------------------------------
 ### How To Use
-#### 1- make sure you have Compuser and Laravel and mysql in you machine
--   a download and setup [xampp](https://www.apachefriends.org/download.html)
+#### 1- make sure you have Composer and Laravel and mysql in you machine
+-   download and setup [xampp](https://www.apachefriends.org/download.html)
 -   download and setup composer [composer](https://getcomposer.org/download/)
-       run apachi and mysql in xampp
+-   run apache and mysql in xampp
 -   go to http://localhost/phpmyadmin in your browser
--   create new database name [xlarge] with utf-8-genral-c
+-   create new database name [xlarge] with utf-8-general-c
 #### 2- Download Project or Clone It
 #### 3- create .env file from .env.example and set database name [xlarge]   and username [root] , with blank password '' .
 #### 4- in Project folder run this comands
