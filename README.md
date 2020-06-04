@@ -4,14 +4,13 @@
 -----------------------------------------------
 ### How To Use
 #### 1- make sure you have Compuser and Laravel and mysql in you machine
-    •   download and setup xampp [xampp](https://www.apachefriends.org/download.html)
-    •   download and setup composer [xampp](https://getcomposer.org/download/)
-    •   run apachi and mysql in xampp
-    •   go to http://localhost/phpmyadmin in your browser
-    •   create new database name [xlarge] with utf-8-genral-c
+-   a download and setup [xampp](https://www.apachefriends.org/download.html)
+-   download and setup composer [composer](https://getcomposer.org/download/)
+       run apachi and mysql in xampp
+-   go to http://localhost/phpmyadmin in your browser
+-   create new database name [xlarge] with utf-8-genral-c
 #### 2- Download Project or Clone It
-#### 3- create .env file from .env.example and set database name [xlarge] 
-#### __  and username [root] , with blank password '' .
+#### 3- create .env file from .env.example and set database name [xlarge]   and username [root] , with blank password '' .
 #### 4- in Project folder run this comands
     •	$ composer install
     •	$ php artisan key:generate
@@ -25,8 +24,8 @@
 ## Api Documentation
 `for all information you need to use api system`
 
-    •	go to http://127.0.0.1:8000/api/docs after setup project for Api Documentation
-    •	get postman json collection [postman.json](public/postman.json)
+-	go to http://127.0.0.1:8000/api/docs after setup project for Api Documentation
+-	get postman json collection [postman.json](public/postman.json)
 ------------------------------------------------------------------------
 ## Project structure:
 ### Project will contain 6 models
