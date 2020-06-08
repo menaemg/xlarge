@@ -17,10 +17,8 @@ class UserController extends Controller
         if ($user->trashed())
         {
             $saved = [
-                'admin_avatar.png' ,
-                'editor_avatar.png' ,
-                'user_avatar.png' ,
-                'Xlarge.png'
+                'avatar.png',
+                'xlarge.png'
         ];
             $image = $user->image;
             $imageName = basename($image);

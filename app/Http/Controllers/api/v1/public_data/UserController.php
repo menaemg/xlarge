@@ -13,33 +13,28 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        $users = $users->toArray();
-
+        $users = User::all()->toArray();
 
         $usersData = [];
 
-
-
-
-
         foreach ($users as $user){
 
-            $posts = Post::where('user_id' ,  $user['id'])->get();
-            $posts = $posts->toArray();
+            $posts = Post::where('user_id' ,  $user['id'])->get()->toArray();
             $views = 0;
             $likes = 0;
 
             foreach ( $posts as $post){
+
                 $postlikes = DB::table('likes')
-                ->where('post_id', '=', $post['id'])
-                ->get();
+                    ->where('post_id', '=', $post['id'])
+                    ->get();
+
                 $postlikes = $postlikes->count();
 
                 $views = $views + $post['views'];
                 $likes = $likes + $postlikes;
-            }
 
+            }
             $usersData[] = [
                 'id' => $user['id'],
                 'name' => $user['name'],
@@ -57,8 +52,10 @@ class UserController extends Controller
         $user = User::findOrFail($id)->toArray();
 
         $posts = Post::where('user_id' ,  $user['id'])->get();
-        $views = 0;
-        $likes = 0;
+        $user_views = 0;
+        $user_likes = 0;
+
+
 
         foreach ( $posts as $post){
             $postlikes = DB::table('likes')
@@ -71,10 +68,12 @@ class UserController extends Controller
                 'title' => $post['title'],
                 'content' => $post['content'],
                 'image' => $post['image'],
+                'likes' =>  $postlikes,
+                'views' =>  $post['views'],
                 'created_at' =>  date('Y-m-d H:i' , strtotime($post['created_at'])),
             ];
-            $views = $views + $post['views'];
-            $likes = $likes + $postlikes;
+            $user_views = $user_views + $post['views'];
+            $user_likes = $user_likes + $postlikes;
         }
 
         $userData[] = [
@@ -82,8 +81,8 @@ class UserController extends Controller
             'name' => $user['name'],
             'image' => $user['image'],
             'created_at' =>  date('Y-m-d H:i' , strtotime($user['created_at'])),
-            'views'  => $views,
-            'likes'  => $likes,
+            'views'  => $user_views,
+            'likes'  => $user_likes,
             'posts'  => $postsData
         ];
 

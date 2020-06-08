@@ -7,6 +7,7 @@ use App\User;
 use App\Category;
 use App\Comment;
 use App\Replay;
+use App\Auth;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
@@ -17,12 +18,28 @@ class PostController extends Controller
 
     public function index()
     {
+
         $posts = Post::where('status' , 1)->get();
         $posts = $posts->toArray();
 
         $postsData = [];
 
         foreach ($posts as $post){
+
+            // check if user like this post
+            $user_like_status = 0;
+            if (Auth('api')->id()){
+                $auth_user_id = Auth('api')->id();
+
+                    $like_status = DB::table('likes')
+                    ->where('post_id', '=', $post['id'])
+                    ->where('user_id', '=', $auth_user_id)
+                    ->get();
+
+                    if ($like_status->count()){
+                        $user_like_status = 1;
+                    }
+            }
 
             // find how publish this post
             $user = User::findOrFail($post['user_id']);
@@ -34,16 +51,8 @@ class PostController extends Controller
             $likes = $likes->count();
 
             // get category for this post
-            $category = Category::find($post['category_id']);
+            $category_name = Category::find($post['category_id']);
 
-            if ($category == null){
-                $catgory = null;
-            } else {
-                $catgory = [
-                    'category_id' => $category->id,
-                    'category_name' => $category->name,
-                ];
-            }
 
             $postsData[] = [
                 'id' => $post['id'],
@@ -57,9 +66,10 @@ class PostController extends Controller
                     'image' => $user->image,
                 ],
                 'likes' => $likes,
-                'category_id' => $post['category_id'],
-                'category' => $catgory,
+                'user_like_status' => $user_like_status,
                 'views' => $post['views'],
+                'category_id' => $post['category_id'],
+                'category_name' => $category_name,
                 'created_at' =>  date('Y-m-d H:i' , strtotime($post['created_at'])),
                 'updated_at' =>  date('Y-m-d H:i' , strtotime($post['updated_at'])),
             ];
@@ -82,18 +92,34 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $user = User::findOrFail($post['user_id']);
+
         // get likes for this post
         $likes = DB::table('likes')
             ->where('post_id', '=', $post['id'])
             ->get();
         $likes = $likes->count();
 
+        // check if user like this post
+        $user_like_status = 0;
+        if (Auth('api')->id()){
+            $auth_user_id = Auth('api')->id();
+
+                $like_status = DB::table('likes')
+                ->where('post_id', '=', $post['id'])
+                ->where('user_id', '=', $auth_user_id)
+                ->get();
+
+                if ($like_status->count()){
+                    $user_like_status = 1;
+                }
+        }
+
         // get category for this post
         $category = Category::find($post['category_id']);
         if ($category == null){
-            $catgory = null;
+            $category = null;
         } else {
-            $catgory = [
+            $category = [
                 'category_id' => $category->id,
                 'category_name' => $category->name,
             ];
@@ -147,15 +173,16 @@ class PostController extends Controller
             'title' => $post->title,
             'content' => $post->content,
             'image' => $post->image,
+            'likes' => $likes,
+            'user_like_status' => $user_like_status,
+            'views' => $post->views,
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'image' => $user->image,
             ],
-            'likes' => $likes,
             'category' => $category,
             'comments' => $commentsData,
-            'views' => $post->views,
             'created_at' =>  date('Y-m-d H:i' , strtotime($post->created_at)),
             'updated_at' =>  date('Y-m-d H:i' , strtotime($post->updated_at)),
         ];

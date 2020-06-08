@@ -17,10 +17,8 @@ class PostController extends Controller
         if ($post->trashed())
         {
             $saved = [
-                'admin_avatar.png' ,
-                'editor_avatar.png' ,
-                'user_avatar.png' ,
-                'Xlarge.png'
+                'avatar.png' ,
+                'xlarge.png'
             ];
             $image = $post->image;
             $imageName = basename($image);

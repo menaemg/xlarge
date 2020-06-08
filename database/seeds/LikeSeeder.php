@@ -1,5 +1,8 @@
 <?php
 
+use App\Like;
+use App\User;
+use App\Post;
 use Illuminate\Database\Seeder;
 
 class LikeSeeder extends Seeder
@@ -11,6 +14,17 @@ class LikeSeeder extends Seeder
      */
     public function run()
     {
-        //factory(App\Like::class, 500)->create();
+        $posts = User::all()->toArray();
+
+        foreach ( $posts as $post ){
+
+            $user = User::all()->random()->id;
+
+            Like::create([
+                'user_id' => $user,
+                'post_id' => $post['id']
+            ]);
+
+        }
     }
 }

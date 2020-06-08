@@ -37,11 +37,11 @@ class PostController extends Controller
 
         // store post image in storage/images
         if ($request->image){
-            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images/posts', 'public');
 
         // set default image for post
         } else {
-            $imageName = 'http://127.0.0.1:8000///storage/images/xlarge.png';
+            $imageName = 'http://127.0.0.1:8000///storage/images/posts/xlarge.png';
         };
 
         // set default post status to public
@@ -107,7 +107,7 @@ class PostController extends Controller
 
         // update post image
         if ($request->image){
-            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images/posts', 'public');
 
         // set old image if request image is null
         } else {

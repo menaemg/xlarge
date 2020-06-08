@@ -202,6 +202,7 @@ class ApiController extends Controller
     *      summary="get public posts",
     *      description="get public posts",
     *      operationId="posts",
+    *      security={{"Bearer":{}}},
     *      @SWG\Response(
     *          response=200,
     *          description="successful operation",
@@ -215,6 +216,7 @@ class ApiController extends Controller
     *      summary="show single post",
     *      description="show single post",
     *      operationId="post",
+    *      security={{"Bearer":{}}},
     *      @SWG\Parameter(
     *          name="id",
     *          in="path",
@@ -652,7 +654,7 @@ class ApiController extends Controller
     *      path="/editor/posts/show/{id}",
     *      tags={"editor posts"},
     *      summary="get one post",
-    *      description="et one post",
+    *      description="edit one post",
     *      operationId="editor.posts.show",
     *      security={{"Bearer":{}}},
     *      @SWG\Parameter(
@@ -724,8 +726,8 @@ class ApiController extends Controller
     *       @SWG\Response(response=400, description="Bad request"),
     *     )
     ****************************************************************
-    * @SWG\Put(
-    *      path="/editor/posts/edit/{id}",
+    * @SWG\Post(
+    *      path="/editor/posts/edit/{id}?_method=put",
     *      tags={"editor posts"},
     *      summary="edit post",
     *      description="edit post",
@@ -775,7 +777,7 @@ class ApiController extends Controller
     *          name="status",
     *          in="formData",
     *          type="string",
-    *          format="boolean",
+    *          format="string",
     *          description="private or public",
     *          required=false,
     *      ),
@@ -1338,8 +1340,8 @@ class ApiController extends Controller
     *       @SWG\Response(response=400, description="Bad request"),
     *     )
     ****************************************************************
-    * @SWG\Put(
-    *      path="/admin/users/edit/{id}",
+    * @SWG\Post(
+    *      path="/admin/users/edit/{id}?_method=put",
     *      tags={"admin users"},
     *      summary="edit user",
     *      description="edit new user",

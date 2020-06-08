@@ -119,7 +119,12 @@
                     "400": {
                         "description": "Bad request"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/posts/show/{id}": {
@@ -147,7 +152,12 @@
                     "400": {
                         "description": "Bad request"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/categories": {
@@ -747,7 +757,7 @@
                     "editor posts"
                 ],
                 "summary": "get one post",
-                "description": "et one post",
+                "description": "edit one post",
                 "operationId": "editor.posts.show",
                 "parameters": [
                     {
@@ -839,8 +849,8 @@
                 ]
             }
         },
-        "/editor/posts/edit/{id}": {
-            "put": {
+        "/editor/posts/edit/{id}?_method=put": {
+            "post": {
                 "tags": [
                     "editor posts"
                 ],
@@ -894,7 +904,7 @@
                         "description": "private or public",
                         "required": false,
                         "type": "string",
-                        "format": "boolean"
+                        "format": "string"
                     }
                 ],
                 "responses": {
@@ -1659,8 +1669,8 @@
                 ]
             }
         },
-        "/admin/users/edit/{id}": {
-            "put": {
+        "/admin/users/edit/{id}?_method=put": {
+            "post": {
                 "tags": [
                     "admin users"
                 ],

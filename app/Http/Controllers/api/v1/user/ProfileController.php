@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
         // store user image in storage
         if ($request->image){
-            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images/users', 'public');
         // use old image if request is null
         } else {
             $imageName = $user->image;

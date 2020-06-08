@@ -48,14 +48,10 @@ class UserController extends Controller
 
         // store user image in storage
         if ($request->image){
-            $imageName = '/storage/' . $request->image->store('images', 'public');
+            $imageName = '/storage/' . $request->image->store('images/users', 'public');
         // set default user image
         } else {
-            $url = 'https://api.adorable.io/avatars/240/'. rand(1,1000);
-            $contents = file_get_contents($url);
-            $image =  md5($contents) . '.png';
-            $imageName = 'storage/images/' . md5($contents) . '.png';
-            Storage::disk('images')->put( $image , file_get_contents($url));
+            $imageName = 'storage/images/users/avatar.png';
         }
         $user = User::create([
             'name' => $request->name,
@@ -117,7 +113,7 @@ class UserController extends Controller
 
         // store user image in storage
         if ($request->image){
-            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images', 'public');
+            $imageName = 'http://127.0.0.1:8000///storage/' . $request->image->store('images/users', 'public');
         // use old image
         } else {
             $imageName = $user->image;
